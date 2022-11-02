@@ -154,5 +154,27 @@ textarea {
 
 }
 .addForm{
+    display: none;
+}
+.addForm table, .addForm td{
+    border:none;
+}
+span{
+    color:blue;
+    text-decoration:underline;
+}
+.productCodeinput{
+    width:60px;
 
+}
+.nameinput{
+    width:190px;
+}
+
+.versioninput{
+    width:55px;
+}
+
+.releaseDateinput{
+    width:125px;
 }

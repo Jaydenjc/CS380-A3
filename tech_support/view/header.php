@@ -6,6 +6,7 @@
     <title>SportsPro Technical Support</title>
     <link rel="stylesheet" type="text/css"
           href="../css/main.css">
+    <script src="../js/tech.js"></script>
 </head>
 
 <!-- the body section -->
