@@ -178,3 +178,22 @@ span{
 .releaseDateinput{
     width:125px;
 }
+
+.firstNameinput{
+    width:50px;
+}
+
+.lastNameinput{
+    width:50px;
+}
+
+.emailinput{
+    width:150px;
+}
+
+.phoneinput{
+    width:90px;
+}
+.passwordinput{
+    width:85px;
+}
