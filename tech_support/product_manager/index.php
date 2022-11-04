@@ -14,21 +14,6 @@
                 $result = mysqli_query($con, $query);
             }
 
-            //add
-            if (empty($_POST['productCode']))
-            {
-                $Code = $_POST['code'];
-                $Name = $_POST['pro_name'];
-                $Version = $_POST['version'];
-                $ReleaseDate = $_POST['release_date'];
-
-                $statement = "INSERT INTO products VALUES('$Code', '$Name', '$Version', '$ReleaseDate')";
-
-                $new = mysqli_query($con, $statement) or die('insert failed: '.mysqli_errno($con));
-            }
-
-
-
             // run SQL SELECT query to select everything from the person table
             $query = "SELECT * FROM products;";
             ($result = mysqli_query($con, $query)) or die('Query failed: ' . mysqli_errno($con));
@@ -65,7 +50,7 @@
         <section class="addForm">
             <h1>Add Product</h1>
             <table>
-                <form action="index.php" method="post">
+                <form action="addProduct.php" method="post">
                     <tr>
                         <td>Code:</td>
                         <td><input type="text" name="code" id="code"></td>

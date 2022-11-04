@@ -1,40 +1,34 @@
 <?php require('../model/database.php'); include '../view/header.php'; ?>
-<main>
-    <!-- ADD PRODUCT -->
-    <section class="addForm">
-        <h1>Add Product</h1>
-        <table>
-            <form action="index.php" method="post">
-                <tr>
-                    <td>Code:</td>
-                    <td><input type="text" name="code" id="code"></td>
-                </tr>
-                <tr>
-                    <td>Name:</td>
-                    <td><input type="text" name="pro_name" id="pro_name"></td>
-                </tr>
-                <tr>
-                    <td>Version:</td>
-                    <td><input type="text" name="version" id="version"></td>
-                </tr>
-                <tr>
-                    <td>Release Date:</td>
-                    <td><input type="date" name="release_date" id="release_date"></td>
-                    <td>Use 'yyyy-mm-dd' format</td>
-                </tr>
-                <tr>
-                    <td></td>
-                   <!-- <td><button type="submit" name="btnAddProduct" onclick="return validateForm()">Add Product</button></td> -->
-                    <tr><td colspan="2"><input type="submit" value="Add Product"></td></tr>
-                </tr>
-            </form>
-        </table>
-        <br>
-         <a class="viewButton" href="index.php">View Product List</a>
-<!--        <button type="button" class="viewButton" onclick="hideAddSection()">View Product List</button>-->
-    </section>
-    <!-- END ADD PRODUCT-->
+<?php
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-</main>
+try {
+    if (empty($_POST['code']) or empty($_POST['pro_name']) or empty($_POST['version']) or empty($_POST['release_date'])) throw new Exception("form fields not filled in");
+
+    $Code = $_POST['code'];
+    $Name = $_POST['pro_name'];
+    $Version = $_POST['version'];
+    $ReleaseDate = $_POST['release_date'];
+
+    $query = "INSERT INTO products VALUES('$Code', '$Name', '$Version', '$ReleaseDate')";
+    $result = mysqli_query($con, $query) or die('insert failed: ' . mysqli_errno($con));
+} catch (Exception $e){
+    $message = $e->getMessage();
+    $code = $e->getCode();
+    header("Location: error.php?code=$code&message=$message");
+}
+finally{
+    mysqli_close($con);
+}
+?>
+
+<html>
+<body>
+<h2 style="text-align: center;">Record added <?php echo $Code?></h2>
+<br>
+<br>
+<a href="index.php">Back</a>
+</body>
+</html>
 
 <?php include '../view/footer.php'; ?>
