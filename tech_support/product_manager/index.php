@@ -31,7 +31,7 @@
                     echo "<td><input class='".$key."input' value='" . $value . "' name='" . $key . "' readonly='readonly' style='border: 0; outline: 0'></td>";
                 }
 
-                echo "<td><input type='submit' value='Delete' name='delete product'></td></tr>";;
+                echo "<td><input type='submit' value='Delete' name='delete product'></td></tr>";
                 // now that we have every field value from this record in our table, we close the table row and go onto the next record (if there is a next record)
                 echo "</tr></form>";
             }
