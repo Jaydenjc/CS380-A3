@@ -34,11 +34,14 @@ if (! is_null($result)){
 
     while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         // create a table row for our record
-        echo "<tr><form method='POST' action='index.php'>";
+        echo "<tr><form method='POST' action='selectCustomer.php'>";
 
         // every field value in the record goes in its own column in the table
 
         foreach ($line as $key => $value) {
+            if ($key == "customerID"){
+                echo "<td style='display: none'><input class='" . $key . "input' value='" . $value . "' name='" . $key . "' readonly='readonly' style='border: 0; outline: 0'></td>";
+            }
             if ($key == "firstName") {
                 echo "<td><input class='" . $key . "input' value='" . $value . "' name='" . $key . "' readonly='readonly' style='border: 0; outline: 0'></td>";
             }
