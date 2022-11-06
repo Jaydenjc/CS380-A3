@@ -77,7 +77,6 @@
             </table>
             <br>
            <span class="viewButton" onclick="hideAddSection()">View Product List</span>
-<!--            <a class="viewButton" href="index.php">View Product List</a>-->
         </section>
 <!--    END ADD PRODUCT-->
 

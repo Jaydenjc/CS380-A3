@@ -47,7 +47,8 @@ if (! empty($_POST['customerID'])) {
 
 ?>
     <h1>View / Update Customer</h1>
-    <form action="index.php" method="post" >
+    <form action="updateCustomer.php" method="post" >
+        <input type="hidden" name="id" value="<?php echo $ID?>" class="solid"><br>
         <label for="fname">First Name:</label>
         <input type="text" name="fname" value="<?php echo $fname?>" class="solid"><br>
         <label for="lname">Last Name:</label>

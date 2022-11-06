@@ -52,11 +52,13 @@ if (! is_null($result)){
                 $email = $value;
             }
             if ($key == "city") {
-                echo "<td><input class='" . $key . "input' value='" . $value . "' name='" . $key . "' readonly='readonly' style='border: 0; outline: 0'></td>";
+                $city = $value;
             }
         }
-        echo "<td><input class='" . "email" . "input' value='" . $email . "' name='" . "email" . "' readonly='readonly' style='border: 0; outline: 0'></td>";
-        echo "<td><input type='submit' value='Select' name='select customer'></td></tr>";
+        echo "<td><input class='emailinput' value='" . $email . "' name='email' readonly='readonly' style='border: 0; outline: 0'></td>";
+        echo "<td><input class='cityinput' value='" . $city . "' name='email' readonly='readonly' style='border: 0; outline: 0'></td>";
+        echo "<td><input type='submit' value='Select' name='select customer'></td>";
+        echo "</form></tr>";
     }
     echo "</table>";
 }
