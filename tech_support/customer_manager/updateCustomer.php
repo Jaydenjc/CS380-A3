@@ -15,8 +15,10 @@ if (! empty($_POST['id'])) {
     $password = $_POST['password'];
 }
     $query = "UPDATE customers SET firstName='$fname', lastName='$lname', address='$address', city='$city', state='$state', postalCode='$pcode', countryCode='$ccode', phone='$phone', email='$email', password='$password' WHERE CustomerID = '$ID';";
-
     $result = mysqli_query($con, $query);
+
+    echo "<p>Customer updated</p>";
+    echo "<a href=\"index.php\"><span class=\"addButton\">Return to customer search</span></a>";
 
 ?>
 <?php include '../view/footer.php'; ?>

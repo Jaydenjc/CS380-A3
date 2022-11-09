@@ -24,10 +24,12 @@ finally{
 
 <html>
 <body>
-<h2 style="text-align: center;">Record added <?php echo $Code?></h2>
-<br>
-<br>
-<a href="index.php">Back</a>
+    <main>
+        <h2 style="text-align: center;">Record added <?php echo $Code?></h2>
+        <br>
+        <br>
+        <a href="index.php">Back</a>
+    </main>
 </body>
 </html>
 

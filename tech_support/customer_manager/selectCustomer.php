@@ -46,29 +46,103 @@ if (! empty($_POST['customerID'])) {
 }
 
 ?>
+<main class="selectCustomer">
     <h1>View / Update Customer</h1>
-    <form action="updateCustomer.php" method="post" >
-        <input type="hidden" name="id" value="<?php echo $ID?>" class="solid"><br>
-        <label for="fname">First Name:</label>
-        <input type="text" name="fname" value="<?php echo $fname?>" class="solid"><br>
-        <label for="lname">Last Name:</label>
-        <input type="text" name="lname" value="<?php echo $lname?>" class="solid"><br>
-        <label for="address">Address:</label>
-        <input type="text" name="address" value="<?php echo $address?>" class="solid"><br>
-        <label for="city">City:</label>
-        <input type="text" name="city" value="<?php echo $city?>" class="solid"><br>
-        <label for="state">State:</label>
-        <input type="text" name="state" value="<?php echo $state?>" class="solid"><br>
-        <label for="pcode">Postal Code:</label>
-        <input type="text" name="pcode" value="<?php echo $pcode?>" class="solid"><br>
-        <label for="ccode">Country Code:</label>
-        <input type="text" name="ccode" value="<?php echo $ccode?>" class="solid"><br>
-        <label for="phone">Phone:</label>
-        <input type="text" name="phone" value="<?php echo $phone?>" class="solid"><br>
-        <label for="email">Email:</label>
-        <input type="text" name="email" value="<?php echo $email?>" class="solid"><br>
-        <label for="password">Password:</label>
-        <input type="text" name="password" value="<?php echo $password?>" class="solid"><br>
-        <input type="submit" value="Update Customer">
-    </form>
+    <table>
+        <form action="updateCustomer.php" method="post" >
+            <input type="hidden" name="id" value="<?php echo $ID?>" class="solid"><br>
+            <tr>
+                <td>
+                    <label for="fname">First Name:</label>
+                </td>
+                <td>
+                    <input type="text" name="fname" value="<?php echo $fname?>" class="solid"><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="lname">Last Name:</label>
+                </td>
+                <td>
+                    <input type="text" name="lname" value="<?php echo $lname?>" class="solid"><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="address">Address:</label>
+                </td>
+                <td class="extraLength">
+                    <input type="text" name="address" value="<?php echo $address?>" class="solid"><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="city">City:</label>
+                </td>
+                <td>
+                    <input type="text" name="city" value="<?php echo $city?>" class="solid"><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="state">State:</label>
+                </td>
+                <td>
+                    <input type="text" name="state" value="<?php echo $state?>" class="solid"><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="pcode">Postal Code:</label>
+                </td>
+                <td>
+                    <input type="text" name="pcode" value="<?php echo $pcode?>" class="solid"><br>
+                </td>
+            </tr>
+            <tr>
+                 <td class="vt">Country: </td>
+                 <td>
+                    <select name="countries">
+                    <?php
+                    //access database for <option> values
+                    include("countryDropdown.php");
+                    ?>
+                    </select>
+                 </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="phone">Phone:</label>
+                </td>
+                <td>
+                    <input type="text" name="phone" value="<?php echo $phone?>" class="solid"><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="email">Email:</label>
+                </td>
+                <td class="extraLength">
+                    <input type="text" name="email" value="<?php echo $email?>" class="solid"><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="password">Password:</label>
+                </td>
+                <td>
+                    <input type="text" name="password" value="<?php echo $password?>" class="solid"><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <input type="submit" value="Update Customer">
+                </td>
+            </tr>
+        </form>
+    </table>
+    <a href="index.php"><span class="addButton">Search Customers</span></a>
+</main>
 <?php include '../view/footer.php'; ?>

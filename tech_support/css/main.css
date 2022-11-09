@@ -156,8 +156,20 @@ textarea {
 .addForm{
     display: none;
 }
-.addForm table, .addForm td{
+.addForm table, .addForm td,
+.selectCustomer table, .selectCustomer td,
+.viewRegister table, .viewRegister td{
     border:none;
+}
+.selectCustomer td:first-child,
+.viewRegister td:first-child{
+    width:150px;
+}
+.selectCustomer input{
+    width:175px;
+}
+.selectCustomer .extraLength input{
+    width:350px;
 }
 span{
     color:blue;

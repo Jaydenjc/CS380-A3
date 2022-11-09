@@ -15,21 +15,22 @@ echo'
     <head>
     </head>
     <body>
-    <h1>Customer Search</h1>
+        <main>
+            <h1>Customer Search</h1>
     
-    <form action="index.php" method="post" >
-        <label for="lname">Last Name:</label>
-        <input type="text" name="lname" class="solid">
-        <input type="submit" value="Submit">
-    </form>
-    <br/>
-    <h1>Results:</h1>
+            <form action="index.php" method="post" >
+                <label for="lname">Last Name:</label>
+                <input type="text" name="lname" class="solid">
+                <input type="submit" value="Submit">
+            </form>
+            <br/>
+        </main>
     </body>
     </html>
 ';
 
 if (! is_null($result)){
-    echo "<table>";
+    echo "<main><h1>Results</h1><table>";
     echo "<tr><th>First</th><th>Last</th><th>Email</th><th>City</th></tr>";
 
     while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -60,7 +61,7 @@ if (! is_null($result)){
         echo "<td><input type='submit' value='Select' name='select customer'></td>";
         echo "</form></tr>";
     }
-    echo "</table>";
+    echo "</table></main>";
 }
 ?>
 <?php include '../view/footer.php'; ?>
