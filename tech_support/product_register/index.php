@@ -1,7 +1,8 @@
 <?php require('../model/database.php'); include '../view/header.php'; ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <title>Product Register</title>
 </head>
 <body>
     <main class="registerProduct">

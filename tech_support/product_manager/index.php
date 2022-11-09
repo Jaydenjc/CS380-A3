@@ -7,78 +7,80 @@
         <table>
             <?php
 
-            //Delete
+            // Delete a product if we have the product code
             if (! empty($_POST['productCode'])) {
                 $code = $_POST['productCode'];
                 $query = "DELETE FROM products WHERE productCode='$code';";
                 $result = mysqli_query($con, $query);
             }
 
-            // run SQL SELECT query to select everything from the person table
+            // Run a SQL SELECT query to select everything from the person table
             $query = "SELECT * FROM products;";
             ($result = mysqli_query($con, $query)) or die('Query failed: ' . mysqli_errno($con));
 
+            // First row (with table headers)
             echo "<tr><th id='codeTitle'>Code</th><th>Name</th><th id='versionTitle'>Version</th><th>Release Date</th><th></th></tr>";
 
-            // loop through every record in person table, and add the field values to our table rows
+            // Loop through every record in person table, and add the field values to our table rows
             while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                 // create a table row for our record
                 echo "<tr><form method='POST' action='index.php'>";
 
-                // every field value in the record goes in its own column in the table
+                // Every field value in the record goes in its own column in the table
 
                 foreach ($line as $key => $value) {
                     echo "<td><input class='".$key."input' value='" . $value . "' name='" . $key . "' readonly='readonly' style='border: 0; outline: 0'></td>";
                 }
 
                 echo "<td><input type='submit' value='Delete' name='delete product'></td></tr>";
-                // now that we have every field value from this record in our table, we close the table row and go onto the next record (if there is a next record)
+                // Now that we have every field value from this record in our table, we close the table row and go onto the next record (if there is a next record)
                 echo "</tr></form>";
             }
 
-            // close the connection to the database
+            // Close the connection to the database
             mysqli_close($con);
             ?>
         </table>
         <!-- END TABLE -->
         <br>
         <span class="addButton" onclick="viewAddSection()">Add Product</span>
-<!--         <a class="addButton" href="addProduct.php">Add Product</a>-->
     </section>
 <!--     END PRODUCT LIST-->
-<!--     ADD PRODUCT -->
+
+<!--     ADD PRODUCT (this section will only display when the "Add Product" button is clicked) -->
         <section class="addForm">
             <h1>Add Product</h1>
+            <form action="addProduct.php" method="post">
             <table>
-                <form action="addProduct.php" method="post">
+                    <!-- The user enters all of these values manually -->
                     <tr>
-                        <td>Code:</td>
-                        <td><input type="text" name="code" id="code"></td>
+                        <td><label for="code">Code:</label></td>
+                        <td><input type="text" name="code" id="code" required></td>
                     </tr>
                     <tr>
-                        <td>Name:</td>
-                        <td><input type="text" name="pro_name" id="pro_name"></td>
+                        <td><label for="pro_name">Name:</></td>
+                        <td><input type="text" name="pro_name" id="pro_name" required></td>
                     </tr>
                     <tr>
-                        <td>Version:</td>
-                        <td><input type="text" name="version" id="version"></td>
+                        <td><label for="version">Version:</label></td>
+                        <td><input type="text" name="version" id="version" required></td>
                     </tr>
                     <tr>
-                        <td>Release Date:</td>
-                        <td><input type="date" name="release_date" id="release_date"></td>
+                        <td><label for="release_date">Release Date:</label></td>
+                        <td><input type="date" name="release_date" id="release_date" required></td>
                         <td>Use 'yyyy-mm-dd' format</td>
                     </tr>
                     <tr>
                         <td></td>
-                        <!-- <td><button type="submit" name="btnAddProduct" onclick="return validateForm()">Add Product</button></td> -->
-                        <td><input type='submit' value='Add Product' name='add product'></td>
+                        <td><input type='submit' value='Add Product' name='add product' required></td>
                     </tr>
-                </form>
-            </table>
+                </table>
+            </form>
             <br>
+            <!-- When the "View Product List" button is clicked, this section of the page is hidden and the product list is redisplayed -->
            <span class="viewButton" onclick="hideAddSection()">View Product List</span>
         </section>
-<!--    END ADD PRODUCT-->
+<!-- END ADD PRODUCT-->
 
 </main>
 

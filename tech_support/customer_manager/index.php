@@ -3,16 +3,29 @@
 
 $result = NULL;
 
+// We only run this section of code if the user has submitted a last name into the search box
 if (! empty($_POST['lname'])) {
     $lname = $_POST['lname'];
-    $query = "SELECT * FROM customers WHERE lastName='$lname';";
-    $result = mysqli_query($con, $query);
+
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+    try {
+        $query = "SELECT * FROM customers WHERE lastName='$lname';";
+        $result = mysqli_query($con, $query);
+    } catch (Exception $e){
+        $message = $e->getMessage();
+        $code = $e->getCode();
+        header("Location: error.php?code=$code&message=$message"); // If there is an error adding the technician, we display this error for the user
+    }
+    finally {
+        mysqli_close($con); // Whether or not there is an error, we close the connection when we are done accessing the database
+    }
 }
 
 echo'
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
     <head>
+    <title>Customer Search</title>
     </head>
     <body>
         <main>
@@ -20,7 +33,7 @@ echo'
     
             <form action="index.php" method="post" >
                 <label for="lname">Last Name:</label>
-                <input type="text" name="lname" class="solid">
+                <input type="text" name="lname" class="solid" required>
                 <input type="submit" value="Submit">
             </form>
             <br/>

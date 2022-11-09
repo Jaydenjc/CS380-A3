@@ -12,8 +12,11 @@ $result = mysqli_query($con, $query);
 
 echo'
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
     <head>
+    <title>
+        Register Product
+    </title>
     </head>
     <body>
         <main>

@@ -48,15 +48,15 @@ if (! empty($_POST['customerID'])) {
 ?>
 <main class="selectCustomer">
     <h1>View / Update Customer</h1>
-    <table>
         <form action="updateCustomer.php" method="post" >
-            <input type="hidden" name="id" value="<?php echo $ID?>" class="solid"><br>
+            <input type="hidden" name="id" value="<?php echo $ID?>" class="solid" >
+        <table>
             <tr>
                 <td>
                     <label for="fname">First Name:</label>
                 </td>
                 <td>
-                    <input type="text" name="fname" value="<?php echo $fname?>" class="solid"><br>
+                    <input type="text" name="fname" id="fname" value="<?php echo $fname?>" class="solid" required>
                 </td>
             </tr>
             <tr>
@@ -64,7 +64,7 @@ if (! empty($_POST['customerID'])) {
                     <label for="lname">Last Name:</label>
                 </td>
                 <td>
-                    <input type="text" name="lname" value="<?php echo $lname?>" class="solid"><br>
+                    <input type="text" name="lname" id="lname" value="<?php echo $lname?>" class="solid" required>
                 </td>
             </tr>
             <tr>
@@ -72,7 +72,7 @@ if (! empty($_POST['customerID'])) {
                     <label for="address">Address:</label>
                 </td>
                 <td class="extraLength">
-                    <input type="text" name="address" value="<?php echo $address?>" class="solid"><br>
+                    <input type="text" name="address" id="address" value="<?php echo $address?>" class="solid" required>
                 </td>
             </tr>
             <tr>
@@ -80,7 +80,7 @@ if (! empty($_POST['customerID'])) {
                     <label for="city">City:</label>
                 </td>
                 <td>
-                    <input type="text" name="city" value="<?php echo $city?>" class="solid"><br>
+                    <input type="text" name="city" id="city" value="<?php echo $city?>" class="solid" required>
                 </td>
             </tr>
             <tr>
@@ -88,7 +88,7 @@ if (! empty($_POST['customerID'])) {
                     <label for="state">State:</label>
                 </td>
                 <td>
-                    <input type="text" name="state" value="<?php echo $state?>" class="solid"><br>
+                    <input type="text" name="state" id="state" value="<?php echo $state?>" class="solid" required>
                 </td>
             </tr>
             <tr>
@@ -96,13 +96,13 @@ if (! empty($_POST['customerID'])) {
                     <label for="pcode">Postal Code:</label>
                 </td>
                 <td>
-                    <input type="text" name="pcode" value="<?php echo $pcode?>" class="solid"><br>
+                    <input type="text" name="pcode" id="pcode" value="<?php echo $pcode?>" class="solid" required>
                 </td>
             </tr>
             <tr>
-                 <td class="vt">Country: </td>
+                 <td class="vt"><label for="countries">Country:</label></td>
                  <td>
-                    <select name="countries">
+                    <select name="countries" id="countries">
                     <?php
                     //access database for <option> values
                     include("countryDropdown.php");
@@ -115,7 +115,7 @@ if (! empty($_POST['customerID'])) {
                     <label for="phone">Phone:</label>
                 </td>
                 <td>
-                    <input type="text" name="phone" value="<?php echo $phone?>" class="solid"><br>
+                    <input type="text" name="phone" id="phone" value="<?php echo $phone?>" class="solid">
                 </td>
             </tr>
             <tr>
@@ -123,7 +123,7 @@ if (! empty($_POST['customerID'])) {
                     <label for="email">Email:</label>
                 </td>
                 <td class="extraLength">
-                    <input type="text" name="email" value="<?php echo $email?>" class="solid"><br>
+                    <input type="text" name="email" id="email" value="<?php echo $email?>" class="solid">
                 </td>
             </tr>
             <tr>
@@ -131,7 +131,7 @@ if (! empty($_POST['customerID'])) {
                     <label for="password">Password:</label>
                 </td>
                 <td>
-                    <input type="text" name="password" value="<?php echo $password?>" class="solid"><br>
+                    <input type="text" name="password" id="password" value="<?php echo $password?>" class="solid">
                 </td>
             </tr>
             <tr>
@@ -141,8 +141,8 @@ if (! empty($_POST['customerID'])) {
                     <input type="submit" value="Update Customer">
                 </td>
             </tr>
+        </table>
         </form>
-    </table>
     <a href="index.php"><span class="addButton">Search Customers</span></a>
 </main>
 <?php include '../view/footer.php'; ?>

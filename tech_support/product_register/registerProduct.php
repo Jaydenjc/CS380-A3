@@ -39,8 +39,9 @@ while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <title>Register Product</title>
 </head>
 <body>
     <main class="viewRegister">
@@ -54,14 +55,16 @@ while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                     <p> <?php echo $firstName . " " . $lastName?></p>
                 </td>
             </tr>
-            <tr>
-                <form method='POST' action='registerScript.php'>
-                    <input type="hidden" name="id" value="<?php echo $customerID?>" class="solid">
+        </table>
+        <form method='POST' action='registerScript.php'>
+            <input type="hidden" name="id" value="<?php echo $customerID?>" class="solid">
+            <table>
+                 <tr>
                     <td>
-                        <label>Product: </label>
+                        <label for="product">Product: </label>
                     </td>
                     <td>
-                        <select name="product">
+                        <select name="product" id="product" >
                             <?php for ($i = 0; $i < sizeof($productNameArray); $i++) : ?>
                             <option value="<?php echo $productCodeArray[$i]; ?>">
                                 <?php echo $productNameArray[$i]; ?>
@@ -69,16 +72,16 @@ while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                             <?php endfor; ?>
                         </select>
                     </td>
-            </tr>
-            <tr>
+                </tr>
+                <tr>
                     <td>
                     </td>
                     <td>
                         <input type='submit' value='Register Product' name='register product'>
                     </td>
-                </form>
-            </tr>
-        </table>
+                </tr>
+             </table>
+        </form>
     </main>
 </body>
 </html>
