@@ -6,6 +6,7 @@
             <!-- INSERT TABLE -->
             <table>
                 <?php
+                mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
                 // If the user has selected a technician to delete, we will delete that technician from the technicians table based on the techID
                 if (! empty($_POST['techID'])) {

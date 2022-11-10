@@ -12,8 +12,10 @@ try {
     $ReleaseDate = $_POST['release_date'];
 
     // Insert the product information given to us by the user into our products table
-    $query = "INSERT INTO products VALUES('$Code', '$Name', '$Version', '$ReleaseDate')";
-    $result = mysqli_query($con, $query) or die('insert failed: ' . mysqli_errno($con));
+    $query = mysqli_prepare($con, "INSERT INTO products VALUES(?, ?, ?, ?)");
+    mysqli_stmt_bind_param($query, "ssss", $Code, $Name, $Version, $ReleaseDate);
+    mysqli_stmt_execute($query) or die('insert failed: ' . mysqli_errno($con));
+    $result = mysqli_stmt_get_result($query);
 } catch (Exception $e){
     $message = $e->getMessage();
     $code = $e->getCode();

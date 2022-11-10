@@ -6,6 +6,7 @@
         <!-- INSERT TABLE -->
         <table>
             <?php
+            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
             // Delete a product if we have the product code
             if (! empty($_POST['productCode'])) {

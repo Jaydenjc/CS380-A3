@@ -1,13 +1,12 @@
 <?php require('../model/database.php'); include '../view/header.php'; ?>
-
 <?php
 if (! empty($_POST['product']) and !empty($_POST['id'])) {
     $product = $_POST['product'];
     $customerID = $_POST['id'];
 }
-
+date_default_timezone_set('America/New_York');
 $date = date('Y/m/d', time());
-$query = "INSERT INTO registrations VALUES ('$customerID', '$product', '$date')";
+$query = "INSERT IGNORE INTO registrations VALUES ('$customerID', '$product', '$date');";
 $result = mysqli_query($con, $query);
 
 echo'

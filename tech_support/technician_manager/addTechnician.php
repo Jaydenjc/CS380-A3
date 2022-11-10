@@ -15,8 +15,10 @@ try {
     $password = $_POST['password'];
 
     // We run a SQL query to add a new technician to the technicians table based on the user input
-    $query = "INSERT INTO technicians VALUES('$id', '$fname', '$lname', '$email', '$phone', '$password')";
-    $result = mysqli_query($con, $query) or die('insert failed: ' . mysqli_errno($con));
+    $query = mysqli_prepare($con, "INSERT INTO technicians VALUES(?, ?, ?, ?, ?, ?)");
+    mysqli_stmt_bind_param($query, "ssssss", $id, $fname, $lname, $email, $phone, $password);
+    mysqli_stmt_execute($query) or die('insert failed: ' . mysqli_errno($con));
+    $result = mysqli_stmt_get_result($query);
 } catch (Exception $e){
     $message = $e->getMessage();
     $code = $e->getCode();

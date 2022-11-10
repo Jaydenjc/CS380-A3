@@ -1,7 +1,10 @@
 <?php require('../model/database.php'); include '../view/header.php'; ?>
 
 <?php
+
 if (! empty($_POST['customerID'])) {
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
     $ID = $_POST['customerID'];
     $query = "SELECT * FROM customers WHERE customerID='$ID';";
     $result = mysqli_query($con, $query);
@@ -103,10 +106,25 @@ if (! empty($_POST['customerID'])) {
                  <td class="vt"><label for="countries">Country:</label></td>
                  <td>
                     <select name="countries" id="countries">
-                    <?php
-                    //access database for <option> values
-                    include("countryDropdown.php");
-                    ?>
+                        <?php
+                        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+                        $query = "SELECT countryName FROM countries WHERE countryCode='$ccode';";
+                        $result = mysqli_query($con, $query);
+                        while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                            // create a table row for our record
+                            foreach ($line as $key => $value) {
+                                if ($key == "countryName") {
+                                    $cname = $value;
+                                }
+                            }
+                        }
+                        ?>
+                        <option value="<?php echo $ccode?>" selected><?php echo $cname?></option>
+                        <?php
+                        //access database for <option> values
+                        include("countryDropdown.php");
+                        ?>
                     </select>
                  </td>
             </tr>

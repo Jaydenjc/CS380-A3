@@ -3,22 +3,28 @@
 <?php
 if (! empty($_POST['email'])) {
     $email = $_POST['email'];
-    $query = "SELECT customerID, firstName, lastName FROM customers WHERE email='$email';";
-    $result = mysqli_query($con, $query);
-    while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-        // create a table row for our record
-        foreach ($line as $key => $value) {
-            if($key == "customerID"){
-                $customerID = $value;
-            }
-            if($key == "firstName"){
-                $firstName = $value;
-            }
-            elseif($key == "lastName") {
-                $lastName = $value;
+
+    $query = mysqli_prepare($con, "SELECT customerID, firstName, lastName FROM customers WHERE email=?");
+    mysqli_stmt_bind_param($query, "s", $email);
+    mysqli_stmt_execute($query);
+    $result = mysqli_stmt_get_result($query);
+
+    if (mysqli_num_rows($result) > 0)
+        while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            // create a table row for our record
+            foreach ($line as $key => $value) {
+                if($key == "customerID"){
+                    $customerID = $value;
+                }
+                if($key == "firstName"){
+                    $firstName = $value;
+                }
+                elseif($key == "lastName") {
+                    $lastName = $value;
+                }
             }
         }
-    }
+    else { header("Location: invalidEmail.php");}
 }
 $query = "SELECT productCode, name FROM products;";
 $result = mysqli_query($con, $query);
