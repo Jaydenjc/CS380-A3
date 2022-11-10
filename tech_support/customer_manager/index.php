@@ -1,10 +1,11 @@
-<?php require('../model/database.php'); include '../view/header.php'; ?>
+<?php require('../model/database.php');
+include '../view/header.php'; ?>
 <?php
 
 $result = NULL; // The results table will only display is result is not null
 
 // We only run this section of code if the user has submitted a last name into the search box
-if (! empty($_POST['lname'])) {
+if (!empty($_POST['lname'])) {
     $lname = $_POST['lname'];
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -13,17 +14,16 @@ if (! empty($_POST['lname'])) {
         mysqli_stmt_bind_param($query, "s", $lname);
         mysqli_stmt_execute($query);
         $result = mysqli_stmt_get_result($query);
-    } catch (Exception $e){
+    } catch (Exception $e) {
         $message = $e->getMessage();
         $code = $e->getCode();
-        header("Location: error.php?code=$code&message=$message"); // If there is an error adding the technician, we display this error for the user
-    }
-    finally {
+        header("Location: error.php?code=$code&message=$message"); // If there is an error selecting the customers, we display this error for the user
+    } finally {
         mysqli_close($con); // Whether or not there is an error, we close the connection when we are done accessing the database
     }
 }
 
-echo'
+echo '
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -44,7 +44,7 @@ echo'
     </html>
 ';
 
-if (! is_null($result)){
+if (!is_null($result)) {
     if (mysqli_num_rows($result) > 0) {
         echo "<main><h1>Results</h1><table>";
         echo "<tr><th>First</th><th>Last</th><th>Email</th><th>City</th></tr>";
@@ -78,8 +78,9 @@ if (! is_null($result)){
             echo "</form></tr>";
         }
         echo "</table></main>";
+    } else {
+        echo "<main><h2>No results found</h2></main>";
     }
-    else {  echo"<main><h2>No results found</h2></main>";}
 }
 ?>
 <?php include '../view/footer.php'; ?>

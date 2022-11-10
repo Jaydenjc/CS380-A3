@@ -1,15 +1,17 @@
-<?php require('../model/database.php'); include '../view/header.php'; ?>
-    <main>
-        <!-- TECHNICIAN LIST -->
-        <section class="viewTable">
-            <h1>Technician List</h1>
-            <!-- INSERT TABLE -->
-            <table>
-                <?php
-                mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+<?php require('../model/database.php');
+include '../view/header.php'; ?>
+<main>
+    <!-- TECHNICIAN LIST -->
+    <section class="viewTable">
+        <h1>Technician List</h1>
+        <!-- INSERT TABLE -->
+        <table>
+            <?php
+            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
+            try {
                 // If the user has selected a technician to delete, we will delete that technician from the technicians table based on the techID
-                if (! empty($_POST['techID'])) {
+                if (!empty($_POST['techID'])) {
                     $ID = $_POST['techID'];
                     $query = "DELETE FROM technicians WHERE techID='$ID';";
                     $result = mysqli_query($con, $query);
@@ -31,8 +33,7 @@
                     foreach ($line as $key => $value) {
                         if ($key != "techID") {
                             echo "<td><input class='" . $key . "input' value='" . $value . "' name='" . $key . "' readonly='readonly' style='border: 0; outline: 0'></td>";
-                        }
-                        else{
+                        } else {
                             echo "<td style='display: none'><input class='" . $key . "input' value='" . $value . "' name='" . $key . "' readonly='readonly' style='border: 0; outline: 0'></td>";
                         }
                     }
@@ -41,57 +42,62 @@
                     // Now that we have every field value from this record in our table, we close the table row and go onto the next record (if there is a next record)
                     echo "</tr></form>";
                 }
+            } catch (Exception $e) {
+                $message = $e->getMessage();
+                $code = $e->getCode();
+                header("Location: error.php?code=$code&message=$message"); // If there is an error doing this, print out the error for the user
+            } finally {
+                mysqli_close($con); // Regardless of whether we have an error, we always close the connection
+            }
+            ?>
+        </table>
+        <!-- END TABLE -->
+        <br>
+        <span class="addButton" onclick="viewAddSection()">Add Technician</span>
+        <!-- Hide the technician list and display the form to add technicians-->
+    </section>
+    <!-- END TECHNICIANS LIST-->
 
-                // Close the connection to the database
-                mysqli_close($con);
-                ?>
+    <!-- ADD TECHNICIAN -->
+    <section class="addForm">
+        <h1>Add Technician</h1>
+        <form action="addTechnician.php" method="post">
+            <!-- We will get the technician information via user input-->
+            <table>
+                <tr>
+                    <td><label for="id">ID:</label></td>
+                    <td><input type="text" name="id" id="id" required></td>
+                </tr>
+                <tr>
+                    <td><label for="fname">First Name:</label></td>
+                    <td><input type="text" name="fname" id="fname" required></td>
+                </tr>
+                <tr>
+                    <td><label for="lname">Last Name:</label></td>
+                    <td><input type="text" name="lname" id="lname" required></td>
+                </tr>
+                <tr>
+                    <td><label for="phone">Phone:</label></td>
+                    <td><input type="text" name="phone" id="phone" required></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+                    <td><input type="text" name="email" id="email" required></td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password:</label></td>
+                    <td><input type="text" name="password" id="password" required></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type='submit' value='Add Technician' name='add technician'></td>
+                </tr>
             </table>
-            <!-- END TABLE -->
-            <br>
-            <span class="addButton" onclick="viewAddSection()">Add Technician</span> <!-- Hide the technician list and display the form to add technicians-->
-        </section>
-        <!-- END TECHNICIANS LIST-->
-
-        <!-- ADD TECHNICIAN -->
-        <section class="addForm">
-            <h1>Add Technician</h1>
-            <form action="addTechnician.php" method="post">
-                <!-- We will get the technician information via user input-->
-                <table>
-                    <tr>
-                        <td><label for="id">ID:</label></td>
-                        <td><input type="text" name="id" id="id" required></td>
-                    </tr>
-                    <tr>
-                        <td><label for="fname">First Name:</label></td>
-                        <td><input type="text" name="fname" id="fname" required></td>
-                    </tr>
-                    <tr>
-                        <td><label for="lname">Last Name:</label></td>
-                        <td><input type="text" name="lname" id="lname" required></td>
-                    </tr>
-                    <tr>
-                        <td><label for="phone">Phone:</label></td>
-                        <td><input type="text" name="phone" id="phone" required></td>
-                    </tr>
-                    <tr>
-                        <td><label for="email">Email:</label></td>
-                        <td><input type="text" name="email" id="email" required></td>
-                    </tr>
-                    <tr>
-                        <td><label for="password">Password:</label></td>
-                        <td><input type="text" name="password" id="password" required></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><input type='submit' value='Add Technician' name='add technician'></td>
-                    </tr>
-                </table>
-            </form>
-            <br>
-            <span class="viewButton" onclick="hideAddSection()">View Technician List</span> <!-- hide the form to add technicians and display the technicians list -->
-        </section>
-        <!-- END ADD TECHNICIAN -->
-    </main>
-
+        </form>
+        <br>
+        <span class="viewButton" onclick="hideAddSection()">View Technician List</span>
+        <!-- hide the form to add technicians and display the technicians list -->
+    </section>
+    <!-- END ADD TECHNICIAN -->
+</main>
 <?php include '../view/footer.php'; ?>

@@ -2,7 +2,7 @@
 <?php
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-try{
+try {
     // Select database and load countries table records
     $query = "SELECT * FROM countries ORDER BY countryName;";
 
@@ -11,20 +11,19 @@ try{
     // How many records in result set
     $rows = mysqli_num_rows($result);
 
-    // if empty bands table, error, redirect to error.php
+    // If empty countries table, error, redirect to error.php
     if ($rows < 1)
-        header("Location: errors/error.php");
+        header("Location: errors/error.php?message='countries not found'");
 
     // Loop over result set. Print a table row for each record
     while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         echo '<option value=' . $line ['countryCode'] . '>' . $line ['countryName'] . ' </option>';
     }
-} catch (Exception $e){
+} catch (Exception $e) {
     $message = $e->getMessage();
     $code = $e->getCode();
     header("Location: error.php?code=$code&message=$message"); // If there is an error adding the technician, we display this error for the user
-}
-finally{
+} finally {
     mysqli_close($con); // Close the connection
 }
 
