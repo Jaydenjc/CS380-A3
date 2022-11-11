@@ -1,4 +1,4 @@
-<!-- John Giaquinto 11/10/2022 -->
+<!-- Jayden Cooper 11/02/2022, Ben Yuter 11/02/2022, John Giaquinto 11/10/2022 -->
 function viewAddSection() {
     let view = document.getElementsByClassName("viewTable"); // Hide every element in the viewTable class
     for(let i = 0; i < view.length; i++){
