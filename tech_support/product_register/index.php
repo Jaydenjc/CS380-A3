@@ -1,3 +1,4 @@
+<!-- Ben Yuter 11/09/2022, John Giaquinto 11/10/2022 -->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
 <!DOCTYPE html>
@@ -10,6 +11,7 @@ include '../view/header.php'; ?>
     <h1>Customer Login</h1>
     <p>You must login before you can register a product.</p>
 
+    <!-- the user must enter their email (which is sent over to registerProduct.php) before they can register a product -->
     <form action="registerProduct.php" method="post">
         <label for="email">Email:</label>
         <input type="text" name="email" class="solid">

@@ -1,3 +1,4 @@
+<!-- Ileaqua Adams 11/02/2022, Ben Yuter 11/09/2022, John Giaquinto 11/10/2022 -->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
 <main>
@@ -26,11 +27,12 @@ include '../view/header.php'; ?>
 
                 // Loop through every record in technicians table, and add the field values to our table rows
                 while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                    // create a table row for our record
+                    // Create a table row for our record with a new form
                     echo "<tr><form method='POST' action='index.php'>";
 
-                    // every field value in the record goes in its own column in the table
+                    // Every field value in the record goes in its own column (and form input) in the table
                     foreach ($line as $key => $value) {
+                        // We don't want the user to see the techID, so we hide it using style='display: none'
                         if ($key != "techID") {
                             echo "<td><input class='" . $key . "input' value='" . $value . "' name='" . $key . "' readonly='readonly' style='border: 0; outline: 0'></td>";
                         } else {
@@ -38,16 +40,16 @@ include '../view/header.php'; ?>
                         }
                     }
 
-                    echo "<td><input type='submit' value='Delete' name='delete technician'></td></tr>";;
+                    echo "<td><input type='submit' value='Delete' name='delete technician'></td></tr>";
                     // Now that we have every field value from this record in our table, we close the table row and go onto the next record (if there is a next record)
                     echo "</tr></form>";
                 }
             } catch (Exception $e) {
                 $message = $e->getMessage();
                 $code = $e->getCode();
-                header("Location: error.php?code=$code&message=$message"); // If there is an error doing this, print out the error for the user
+                header("Location: error.php?code=$code&message=$message"); // If there is an error selecting the technicians or deleting a technician, this error is printed on the error page
             } finally {
-                mysqli_close($con); // Regardless of whether we have an error, we always close the connection
+                mysqli_close($con); // Regardless of whether we have an error, we close the connection
             }
             ?>
         </table>
@@ -95,8 +97,8 @@ include '../view/header.php'; ?>
             </table>
         </form>
         <br>
+        <!-- Hide the form to add technicians and display the technicians list -->
         <span class="viewButton" onclick="hideAddSection()">View Technician List</span>
-        <!-- hide the form to add technicians and display the technicians list -->
     </section>
     <!-- END ADD TECHNICIAN -->
 </main>

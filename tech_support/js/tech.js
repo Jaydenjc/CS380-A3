@@ -1,22 +1,23 @@
+<!-- John Giaquinto 11/10/2022 -->
 function viewAddSection() {
-    var view = document.getElementsByClassName("viewTable");
-    for(var i = 0; i < view.length; i++){
+    let view = document.getElementsByClassName("viewTable"); // Hide every element in the viewTable class
+    for(let i = 0; i < view.length; i++){
         view[i].style.display = "none";
     }
-    var add = document.getElementsByClassName("addForm");
-    for(var i = 0; i < add.length; i++){
+    let add = document.getElementsByClassName("addForm"); // View every element in the addForm class
+    for(let i = 0; i < add.length; i++){
         add[i].style.display = "block";
     }
 }
 
 
 function hideAddSection() {
-    var view = document.getElementsByClassName("viewTable");
-    for(var i = 0; i < view.length; i++){
+    let view = document.getElementsByClassName("viewTable"); // View every element in the viewTable class
+    for(let i = 0; i < view.length; i++){
         view[i].style.display = "block";
     }
-    var add = document.getElementsByClassName("addForm");
-    for(var i = 0; i < add.length; i++){
+    let add = document.getElementsByClassName("addForm"); // Hide every element in the addForm class
+    for(let i = 0; i < add.length; i++){
         add[i].style.display = "none";
     }
 }

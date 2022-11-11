@@ -1,3 +1,4 @@
+<!-- Jayden Cooper 11/02/2022, Ben Yuter 11/09/2022, John Giaquinto 11/10/2022 -->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
 <main>
@@ -17,20 +18,19 @@ include '../view/header.php'; ?>
                     $result = mysqli_query($con, $query);
                 }
 
-                // Run a SQL SELECT query to select everything from the person table
+                // Run a SQL SELECT query to select everything from the products table
                 $query = "SELECT * FROM products;";
                 ($result = mysqli_query($con, $query)) or die('Query failed: ' . mysqli_errno($con));
 
                 // First row (with table headers)
                 echo "<tr><th id='codeTitle'>Code</th><th>Name</th><th id='versionTitle'>Version</th><th>Release Date</th><th></th></tr>";
 
-                // Loop through every record in person table, and add the field values to our table rows
+                // Loop through every record in products table, and add the field values to our table rows
                 while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                    // create a table row for our record
+                    // Create a table row for our record. Each row has its own form
                     echo "<tr><form method='POST' action='index.php'>";
 
-                    // Every field value in the record goes in its own column in the table
-
+                    // Every field value in the record goes in its own column in the table (and in its own input box)
                     foreach ($line as $key => $value) {
                         echo "<td><input class='" . $key . "input' value='" . $value . "' name='" . $key . "' readonly='readonly' style='border: 0; outline: 0'></td>";
                     }
@@ -42,9 +42,9 @@ include '../view/header.php'; ?>
             } catch (Exception $e) {
                 $message = $e->getMessage();
                 $code = $e->getCode();
-                header("Location: error.php?code=$code&message=$message"); // If there is an error doing this, print out the error for the user
+                header("Location: error.php?code=$code&message=$message"); // If there is an error doing this, print out the error for the user on the error page
             } finally {
-                mysqli_close($con); // Regardless of whether we have an error, we always close the connection
+                mysqli_close($con); // Regardless of whether we have an error, we close the connection
             }
             ?>
         </table>

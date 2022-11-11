@@ -1,3 +1,4 @@
+<!-- Ben Yuter 11/09/2022, John Giaquinto 11/10/2022 -->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
 <?php
@@ -17,7 +18,7 @@ if (!empty($_POST['lname'])) {
     } catch (Exception $e) {
         $message = $e->getMessage();
         $code = $e->getCode();
-        header("Location: error.php?code=$code&message=$message"); // If there is an error selecting the customers, we display this error for the user
+        header("Location: error.php?code=$code&message=$message"); // If there is an error selecting the customers, we display this error for the user on the error page
     } finally {
         mysqli_close($con); // Whether or not there is an error, we close the connection when we are done accessing the database
     }
@@ -33,6 +34,7 @@ echo '
         <main>
             <h1>Customer Search</h1>
     
+            <!-- The user enters the customer last name here -->
             <form action="index.php" method="post" >
                 <label for="lname">Last Name:</label>
                 <input type="text" name="lname" class="solid" required>
@@ -44,19 +46,19 @@ echo '
     </html>
 ';
 
-if (!is_null($result)) {
-    if (mysqli_num_rows($result) > 0) {
+if (!is_null($result)) { // If the user has searched for a customer last name
+    if (mysqli_num_rows($result) > 0) { // If the last name exists in the database
         echo "<main><h1>Results</h1><table>";
-        echo "<tr><th>First</th><th>Last</th><th>Email</th><th>City</th></tr>";
+        echo "<tr><th>First</th><th>Last</th><th>Email</th><th>City</th></tr>"; // Column names
 
         while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             // create a table row for our record
             echo "<tr><form method='POST' action='selectCustomer.php'>";
 
-            // every field value in the record goes in its own column in the table
-
+            // Every field value in the record goes in its own column in the table
             foreach ($line as $key => $value) {
                 if ($key == "customerID") {
+                    // We don't want to display the customer ID for the customer, so we hide it
                     echo "<td style='display: none'><input class='" . $key . "input' value='" . $value . "' name='" . $key . "' readonly='readonly' style='border: 0; outline: 0'></td>";
                 }
                 if ($key == "firstName") {
@@ -65,13 +67,14 @@ if (!is_null($result)) {
                 if ($key == "lastName") {
                     echo "<td><input class='" . $key . "input' value='" . $value . "' name='" . $key . "' readonly='readonly' style='border: 0; outline: 0'></td>";
                 }
-                if ($key == "email") {
+                if ($key == "email") { // Email comes after city in the database, but we want to display it before city. For now we'll create email and city variables
                     $email = $value;
                 }
                 if ($key == "city") {
                     $city = $value;
                 }
             }
+            // Now we have the email and city variables, we can display them in order
             echo "<td><input class='emailinput' value='" . $email . "' name='email' readonly='readonly' style='border: 0; outline: 0'></td>";
             echo "<td><input class='cityinput' value='" . $city . "' name='email' readonly='readonly' style='border: 0; outline: 0'></td>";
             echo "<td><input type='submit' value='Select' name='select customer'></td>";
@@ -79,7 +82,7 @@ if (!is_null($result)) {
         }
         echo "</table></main>";
     } else {
-        echo "<main><h2>No results found</h2></main>";
+        echo "<main><h2>No results found</h2></main>"; // Display "No results found" if the user searched for a customer last name that does not exist in the database
     }
 }
 ?>

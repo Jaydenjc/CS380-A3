@@ -1,17 +1,18 @@
+<!-- Jayden Cooper 11/09/2022, Ben Yuter 11/09/2022, John Giaquinto 11/10/2022 -->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
 
 <?php
 
-if (!empty($_POST['customerID'])) {
+if (!empty($_POST['customerID'])) { // If the user pressed the "select" button, this should be true (i.e., we should know the customerID)
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $ID = $_POST['customerID'];
 
     try {
-        $query = "SELECT * FROM customers WHERE customerID='$ID';";
+        $query = "SELECT * FROM customers WHERE customerID='$ID';"; // Select the one customer with a matching ID (customerID is a primary key)
         $result = mysqli_query($con, $query);
         while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-            // create a table row for our record
+            // Find the customer's information to be echoed into the customer's table / form later on
             foreach ($line as $key => $value) {
                 if ($key == "customerID") {
                     $ID = $value;
@@ -41,134 +42,141 @@ if (!empty($_POST['customerID'])) {
     } catch (Exception $e) {
         $message = $e->getMessage();
         $code = $e->getCode();
-        header("Location: error.php?code=$code&message=$message"); // If there is an error selecting the customer, we display this error for the user
+        header("Location: error.php?code=$code&message=$message"); // If there is an error selecting the customer, we display the error for the user in the errors page
     } // We won't close the connection here in a finally block because we use it again later
 } else {
+    // If the user somehow got to this page without properly selecting a customer, redirect to the error page
     header("Location: ../errors/error.php?message=Warning: Customer not properly selected!");
 }
 
 ?>
-    <main class="selectCustomer">
-        <h1>View / Update Customer</h1>
-        <form action="updateCustomer.php" method="post">
-            <input type="hidden" name="id" value="<?php echo $ID ?>" class="solid">
-            <table>
-                <tr>
-                    <td>
-                        <label for="fname">First Name:</label>
-                    </td>
-                    <td>
-                        <input type="text" name="fname" id="fname" value="<?php echo $fname ?>" class="solid" required>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="lname">Last Name:</label>
-                    </td>
-                    <td>
-                        <input type="text" name="lname" id="lname" value="<?php echo $lname ?>" class="solid" required>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="address">Address:</label>
-                    </td>
-                    <td class="extraLength">
-                        <input type="text" name="address" id="address" value="<?php echo $address ?>" class="solid"
-                               required>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="city">City:</label>
-                    </td>
-                    <td>
-                        <input type="text" name="city" id="city" value="<?php echo $city ?>" class="solid" required>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="state">State:</label>
-                    </td>
-                    <td>
-                        <input type="text" name="state" id="state" value="<?php echo $state ?>" class="solid" required>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="pcode">Postal Code:</label>
-                    </td>
-                    <td>
-                        <input type="text" name="pcode" id="pcode" value="<?php echo $pcode ?>" class="solid" required>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="vt"><label for="countries">Country:</label></td>
-                    <td>
-                        <select name="countries" id="countries">
-                            <?php
-                            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+<main class="selectCustomer">
+    <h1>View / Update Customer</h1>
+    <!-- Here the user can enter the new / changed customer information to update. The form submits to the updateCustomer.php page -->
+    <form action="updateCustomer.php" method="post">
+        <!-- The user cannot change the customerID, but can change anything else -->
+        <input type="hidden" name="id" value="<?php echo $ID ?>" class="solid">
+        <table>
+            <tr>
+                <td>
+                    <label for="fname">First Name:</label>
+                </td>
+                <td>
+                    <input type="text" name="fname" id="fname" value="<?php echo $fname ?>" class="solid" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="lname">Last Name:</label>
+                </td>
+                <td>
+                    <input type="text" name="lname" id="lname" value="<?php echo $lname ?>" class="solid" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="address">Address:</label>
+                </td>
+                <!-- We want the address line and email line to be a bit longer. The form boxes in the extraLength class are longer due to CSS -->
+                <td class="extraLength">
+                    <input type="text" name="address" id="address" value="<?php echo $address ?>" class="solid"
+                           required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="city">City:</label>
+                </td>
+                <td>
+                    <input type="text" name="city" id="city" value="<?php echo $city ?>" class="solid" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="state">State:</label>
+                </td>
+                <td>
+                    <input type="text" name="state" id="state" value="<?php echo $state ?>" class="solid" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="pcode">Postal Code:</label>
+                </td>
+                <td>
+                    <input type="text" name="pcode" id="pcode" value="<?php echo $pcode ?>" class="solid" required>
+                </td>
+            </tr>
+            <tr>
+                <td class="vt"><label for="countries">Country:</label></td>
+                <td>
+                    <select name="countries" id="countries">
+                        <?php
+                        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-                            try {
-                                $query = "SELECT countryName FROM countries WHERE countryCode='$ccode';";
-                                $result = mysqli_query($con, $query);
-                                while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                                    // create a table row for our record
-                                    foreach ($line as $key => $value) {
-                                        if ($key == "countryName") {
-                                            $cname = $value;
-                                        }
+                        try { // Find the customer's current country
+                            $query = "SELECT countryName FROM countries WHERE countryCode='$ccode';";
+                            $result = mysqli_query($con, $query);
+                            while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                                // create a table row for our record
+                                foreach ($line as $key => $value) {
+                                    if ($key == "countryName") {
+                                        $cname = $value;
                                     }
                                 }
-                            } catch (Exception $e) {
-                                $message = $e->getMessage();
-                                $code = $e->getCode();
-                                header("Location: error.php?code=$code&message=$message"); // If there is an error selecting the countries, we display this error for the user
-                            } finally {
-                                mysqli_close($con); // Whether or not there is an error, we close the connection when we are done accessing the database
                             }
-                            ?>
-                            <option value="<?php echo $ccode ?>" selected><?php echo $cname ?></option>
-                            <?php
-                            //access database for <option> values
-                            include("countryDropdown.php");
-                            ?>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="phone">Phone:</label>
-                    </td>
-                    <td>
-                        <input type="text" name="phone" id="phone" value="<?php echo $phone ?>" class="solid">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="email">Email:</label>
-                    </td>
-                    <td class="extraLength">
-                        <input type="text" name="email" id="email" value="<?php echo $email ?>" class="solid">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="password">Password:</label>
-                    </td>
-                    <td>
-                        <input type="text" name="password" id="password" value="<?php echo $password ?>" class="solid">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                    </td>
-                    <td>
-                        <input type="submit" value="Update Customer">
-                    </td>
-                </tr>
-            </table>
-        </form>
-        <a href="index.php"><span class="addButton">Search Customers</span></a>
-    </main>
+                        } catch (Exception $e) {
+                            $message = $e->getMessage();
+                            $code = $e->getCode();
+                            header("Location: error.php?code=$code&message=$message"); // If there is an error selecting the country, we display this error for the user on the error page
+                        } finally {
+                            mysqli_close($con); // Now we are done using the database. We can close the connection.
+                        }
+                        ?>
+                        <!-- Select the customer's current country by default -->
+                        <option value="<?php echo $ccode ?>" selected><?php echo $cname ?></option>
+                        <?php
+                        // Access database for <option> country values
+                        include("countryDropdown.php");
+                        ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="phone">Phone:</label>
+                </td>
+                <td>
+                    <input type="text" name="phone" id="phone" value="<?php echo $phone ?>" class="solid">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="email">Email:</label>
+                </td>
+                <td class="extraLength">
+                    <input type="text" name="email" id="email" value="<?php echo $email ?>" class="solid">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="password">Password:</label>
+                </td>
+                <td>
+                    <input type="text" name="password" id="password" value="<?php echo $password ?>" class="solid">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <!-- The table cell here moves the "Update Customer" button from the left of the page to the center-->
+                </td>
+                <td>
+                    <input type="submit" value="Update Customer">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <!-- The user can go back to the index page to make a new search if they click this button-->
+    <a href="index.php"><span class="addButton">Search Customers</span></a>
+</main>
 <?php include '../view/footer.php'; ?>

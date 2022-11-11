@@ -1,26 +1,30 @@
+<!-- Ben Yuter 11/09/2022, John Giaquinto 11/10/2022 -->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
 <?php
+// Set the default timezone to New York for when we grab today's date
 date_default_timezone_set('America/New_York');
 
-if (!empty($_POST['product']) and !empty($_POST['id'])) {
+if (!empty($_POST['product']) and !empty($_POST['id'])) { // We can only register a product of we know the product id and the customer id
     $product = $_POST['product'];
     $customerID = $_POST['id'];
-    $date = date('Y/m/d', time());
+    $date = date('Y/m/d', time()); // Today's date in year/month/day format
 
     try {
-        // Ignore prevents an error duplicate entries
+        // The IGNORE keyword won't throw an error for duplicate entries
         $query = "INSERT IGNORE INTO registrations VALUES ('$customerID', '$product', '$date');";
         $result = mysqli_query($con, $query);
     } catch (Exception $e) {
         $message = $e->getMessage();
         $code = $e->getCode();
-        header("Location: error.php?code=$code&message=$message"); // If there is an error doing this, print out the error for the user
+        header("Location: error.php?code=$code&message=$message"); // If there is an error registering a product to a customer, print out the error for the user on the errors page
     } finally {
-        mysqli_close($con); // Regardless of whether we have an error, we always close the connection
+        mysqli_close($con); // Close the connection to the database
     }
 } else {
-    header("Location: index.php"); // If the user somehow gets to this page without having selected a product and customer
+    // If the user somehow gets to this page without having selected a product and customer, they are sent back to the index to login again
+    // The user is meant to go from index.php to registerProduct.php to registerScript.php
+    header("Location: index.php");
 }
 
 echo '
