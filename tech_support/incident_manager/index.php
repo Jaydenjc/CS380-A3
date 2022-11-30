@@ -15,7 +15,7 @@ include '../view/header.php'; ?>
     <form action="createIncident.php" method="post">
         <label for="email">Email:</label>
         <input type="text" name="email" class="solid">
-        <input type="submit" value="Login">
+        <input type="submit" value="Get Customer">
     </form>
 </main>
 </body>

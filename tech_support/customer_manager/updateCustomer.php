@@ -1,4 +1,4 @@
-<!-- John Giaquinto 11/10/2022 -->
+<!-- John Giaquinto 11/10/2022 Ileaqua Adams 11/30/2022-->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
 
@@ -23,8 +23,8 @@ if (!empty($_POST['id'])) { // We should always know the customer ID unless the 
         $query = "UPDATE customers SET firstName='$fname', lastName='$lname', address='$address', city='$city', state='$state', postalCode='$pcode', countryCode='$ccode', phone='$phone', email='$email', password='$password' WHERE CustomerID = '$ID';";
         $result = mysqli_query($con, $query);
 
-        echo "<p>Customer updated</p>";
-        echo "<a href=\"index.php\"><span class=\"addButton\">Return to customer search</span></a>";
+        echo "<main><p>Customer updated</p>";
+        echo "<a href=\"index.php\"><span class=\"addButton\">Return to customer search</span></a></main>";
     } catch (Exception $e) {
         $message = $e->getMessage();
         $code = $e->getCode();

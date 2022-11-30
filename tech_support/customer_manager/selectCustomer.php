@@ -1,4 +1,4 @@
-<!-- Jayden Cooper 11/09/2022, Ben Yuter 11/09/2022, John Giaquinto 11/10/2022 -->
+<!-- Jayden Cooper 11/09/2022, Ben Yuter 11/09/2022, John Giaquinto 11/10/2022 Ileaqua Adams 11/30/2022-->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
 
@@ -58,11 +58,12 @@ if (!empty($_POST['customerID'])) { // If the user pressed the "select" button, 
         <input type="hidden" name="id" value="<?php echo $ID ?>" class="solid">
         <table>
             <tr>
+                <!-- Character length for fname, lname, address city state and email should have minimum lengths of 1 character and maximum lengths of 50 characters -->
                 <td>
                     <label for="fname">First Name:</label>
                 </td>
                 <td>
-                    <input type="text" name="fname" id="fname" value="<?php echo $fname ?>" class="solid" required>
+                    <input type="text" minlength="1" maxlength="50" name="fname" id="fname" value="<?php echo $fname ?>" class="solid" required>
                 </td>
             </tr>
             <tr>
@@ -70,7 +71,7 @@ if (!empty($_POST['customerID'])) { // If the user pressed the "select" button, 
                     <label for="lname">Last Name:</label>
                 </td>
                 <td>
-                    <input type="text" name="lname" id="lname" value="<?php echo $lname ?>" class="solid" required>
+                    <input type="text" minlength="1" maxlength="50" name="lname" id="lname" value="<?php echo $lname ?>" class="solid" required>
                 </td>
             </tr>
             <tr>
@@ -79,7 +80,7 @@ if (!empty($_POST['customerID'])) { // If the user pressed the "select" button, 
                 </td>
                 <!-- We want the address line and email line to be a bit longer. The form boxes in the extraLength class are longer due to CSS -->
                 <td class="extraLength">
-                    <input type="text" name="address" id="address" value="<?php echo $address ?>" class="solid"
+                    <input type="text" minlength="1" maxlength="50" name="address" id="address" value="<?php echo $address ?>" class="solid"
                            required>
                 </td>
             </tr>
@@ -88,7 +89,7 @@ if (!empty($_POST['customerID'])) { // If the user pressed the "select" button, 
                     <label for="city">City:</label>
                 </td>
                 <td>
-                    <input type="text" name="city" id="city" value="<?php echo $city ?>" class="solid" required>
+                    <input type="text" minlength="1" maxlength="50" name="city" id="city" value="<?php echo $city ?>" class="solid" required>
                 </td>
             </tr>
             <tr>
@@ -96,15 +97,16 @@ if (!empty($_POST['customerID'])) { // If the user pressed the "select" button, 
                     <label for="state">State:</label>
                 </td>
                 <td>
-                    <input type="text" name="state" id="state" value="<?php echo $state ?>" class="solid" required>
+                    <input type="text" minlength="1" maxlength="50" name="state" id="state" value="<?php echo $state ?>" class="solid" required>
                 </td>
             </tr>
             <tr>
+                <!-- Postal code should be between 1 and 20 characters -->
                 <td>
                     <label for="pcode">Postal Code:</label>
                 </td>
                 <td>
-                    <input type="text" name="pcode" id="pcode" value="<?php echo $pcode ?>" class="solid" required>
+                    <input type="text" minlength="1" maxlength="20" name="pcode" id="pcode" value="<?php echo $pcode ?>" required>
                 </td>
             </tr>
             <tr>
@@ -147,23 +149,25 @@ if (!empty($_POST['customerID'])) { // If the user pressed the "select" button, 
                     <label for="phone">Phone:</label>
                 </td>
                 <td>
-                    <input type="text" name="phone" id="phone" value="<?php echo $phone ?>" class="solid">
+                    <input type="text" name="phone" id="phone" value="<?php echo $phone ?>" class="solid" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}"><span class="requiredTag"></span>
                 </td>
             </tr>
             <tr>
+                <!-- Email address must be valid-->
                 <td>
                     <label for="email">Email:</label>
                 </td>
                 <td class="extraLength">
-                    <input type="text" name="email" id="email" value="<?php echo $email ?>" class="solid">
+                    <input type="email" minlength="1" maxlength="50" name="email" id="email" value="<?php echo $email ?>" pattern="[a-z0-9._%+-]+@[a-z0-9]+\.[a-z]{2,4}$" class="solid" required>
                 </td>
             </tr>
             <tr>
+                <!-- Password should be between 6 and 20 characters -->
                 <td>
                     <label for="password">Password:</label>
                 </td>
                 <td>
-                    <input type="text" name="password" id="password" value="<?php echo $password ?>" class="solid">
+                    <input type="text" minlength="6" maxlength="20" name="password" id="password" value="<?php echo $password ?>" class="solid" required>
                 </td>
             </tr>
             <tr>
