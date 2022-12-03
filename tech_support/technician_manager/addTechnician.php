@@ -9,12 +9,12 @@ try {
     // If the user did not fill in the all of the technician information, we throw an exception
     if (empty($_POST['id']) or empty($_POST['fname']) or empty($_POST['lname']) or empty($_POST['email']) or empty($_POST['phone']) or empty($_POST['password'])) throw new Exception("form fields not filled in");
 
-    $id = $_POST['id'];
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $password = $_POST['password'];
+    $id = htmlspecialchars($_POST['id']);
+    $fname = htmlspecialchars($_POST['fname']);
+    $lname = htmlspecialchars($_POST['lname']);
+    $email = htmlspecialchars($_POST['email']);
+    $phone = htmlspecialchars($_POST['phone']);
+    $password = htmlspecialchars($_POST['password']);
 
     // We run a SQL query to add a new technician to the technicians table based on the user input (using a prepared statement to prevent SQL injections)
     $query = mysqli_prepare($con, "INSERT INTO technicians VALUES(?, ?, ?, ?, ?, ?)");

@@ -8,10 +8,10 @@ try {
     // The user needs to fill in the form fields for the new product, otherwise an exception will be thrown
     if (empty($_POST['code']) or empty($_POST['pro_name']) or empty($_POST['version']) or empty($_POST['release_date'])) throw new Exception("Form fields not filled in");
 
-    $Code = $_POST['code'];
-    $Name = $_POST['pro_name'];
-    $Version = $_POST['version'];
-    $ReleaseDate = $_POST['release_date'];
+    $Code = htmlspecialchars($_POST['code']);
+    $Name = htmlspecialchars($_POST['pro_name']);
+    $Version = htmlspecialchars($_POST['version']);
+    $ReleaseDate = htmlspecialchars($_POST['release_date']);
 
     // Insert the product information given to us by the user into our products table using a prepared statement to prevent SQL injections
     $query = mysqli_prepare($con, "INSERT INTO products VALUES(?, ?, ?, ?)");

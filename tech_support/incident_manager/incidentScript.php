@@ -1,14 +1,16 @@
+<!-- Ben Yuter 11/23/2022, John Giaquinto 11/23/2022 -->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
 <?php
 // Set the default timezone to New York for when we grab today's date
 date_default_timezone_set('America/New_York');
 
-if (!empty($_POST['product']) and !empty($_POST['id']) and !empty($_POST['title']) and !empty($_POST['description'])) { // We can only register a product of we know the product id and the customer id
-    $product = $_POST['product'];
-    $customerID = $_POST['id'];
-    $title = $_POST['title'];
-    $description = $_POST['description'];
+// We can only create an incideent if we know the product id, customer id, and incident title and description
+if (!empty($_POST['product']) and !empty($_POST['id']) and !empty($_POST['title']) and !empty($_POST['description'])) {
+    $product = htmlspecialchars($_POST['product']);
+    $customerID = htmlspecialchars($_POST['id']);
+    $title = htmlspecialchars($_POST['title']);
+    $description = htmlspecialchars($_POST['description']);
 
     $date = date('Y/m/d', time()); // Today's date in year/month/day format
 

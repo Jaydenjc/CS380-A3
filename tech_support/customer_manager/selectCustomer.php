@@ -1,4 +1,4 @@
-<!-- Jayden Cooper 11/09/2022, Ben Yuter 11/09/2022, John Giaquinto 11/10/2022 Ileaqua Adams 11/30/2022-->
+<!-- Jayden Cooper 11/30/2022, Ben Yuter 11/30/2022, John Giaquinto 11/30/2022 Ileaqua Adams 11/30/2022-->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
 
@@ -13,29 +13,30 @@ if (!empty($_POST['customerID'])) { // If the user pressed the "select" button, 
         $result = mysqli_query($con, $query);
         while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             // Find the customer's information to be echoed into the customer's table / form later on
+            // htmlspecialchars($value) prevents html injections by converting < , >, &, ', " into special format
             foreach ($line as $key => $value) {
                 if ($key == "customerID") {
-                    $ID = $value;
+                    $ID = htmlspecialchars($value);
                 } elseif ($key == "firstName") {
-                    $fname = $value;
+                    $fname = htmlspecialchars($value);
                 } elseif ($key == "lastName") {
-                    $lname = $value;
+                    $lname = htmlspecialchars($value);
                 } elseif ($key == "address") {
-                    $address = $value;
+                    $address = htmlspecialchars($value);
                 } elseif ($key == "city") {
-                    $city = $value;
+                    $city = htmlspecialchars($value);
                 } elseif ($key == "state") {
-                    $state = $value;
+                    $state = htmlspecialchars($value);
                 } elseif ($key == "postalCode") {
-                    $pcode = $value;
+                    $pcode = htmlspecialchars($value);
                 } elseif ($key == "countryCode") {
-                    $ccode = $value;
+                    $ccode = htmlspecialchars($value);
                 } elseif ($key == "phone") {
-                    $phone = $value;
+                    $phone = htmlspecialchars($value);
                 } elseif ($key == "email") {
-                    $email = $value;
+                    $email = htmlspecialchars($value);
                 } elseif ($key == "password") {
-                    $password = $value;
+                    $userpassword = htmlspecialchars($value);
                 }
             }
         }
@@ -80,8 +81,7 @@ if (!empty($_POST['customerID'])) { // If the user pressed the "select" button, 
                 </td>
                 <!-- We want the address line and email line to be a bit longer. The form boxes in the extraLength class are longer due to CSS -->
                 <td class="extraLength">
-                    <input type="text" minlength="1" maxlength="50" name="address" id="address" value="<?php echo $address ?>" class="solid"
-                           required>
+                    <input type="text" minlength="1" maxlength="50" name="address" id="address" value="<?php echo $address ?>" class="solid" required>
                 </td>
             </tr>
             <tr>
@@ -149,7 +149,7 @@ if (!empty($_POST['customerID'])) { // If the user pressed the "select" button, 
                     <label for="phone">Phone:</label>
                 </td>
                 <td>
-                    <input type="text" name="phone" id="phone" value="<?php echo $phone ?>" class="solid" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}"><span class="requiredTag"></span>
+                    <input type="text" name="phone" id="phone" value="<?php echo $phone ?>" class="solid" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" title="Use (999) 999-9999 format"><span class="requiredTag"></span>
                 </td>
             </tr>
             <tr>
@@ -158,7 +158,7 @@ if (!empty($_POST['customerID'])) { // If the user pressed the "select" button, 
                     <label for="email">Email:</label>
                 </td>
                 <td class="extraLength">
-                    <input type="email" minlength="1" maxlength="50" name="email" id="email" value="<?php echo $email ?>" pattern="[a-z0-9._%+-]+@[a-z0-9]+\.[a-z]{2,4}$" class="solid" required>
+                    <input type="email" minlength="1" maxlength="50" name="email" id="email" value="<?php echo $email ?>" pattern="[a-z0-9._%+-]+@[a-z0-9]+\.[a-z]{2,4}$" title="Use name@example.com format" class="solid" required>
                 </td>
             </tr>
             <tr>
@@ -167,7 +167,7 @@ if (!empty($_POST['customerID'])) { // If the user pressed the "select" button, 
                     <label for="password">Password:</label>
                 </td>
                 <td>
-                    <input type="text" minlength="6" maxlength="20" name="password" id="password" value="<?php echo $password ?>" class="solid" required>
+                    <input type="text" minlength="6" maxlength="20" name="password" id="password" value="<?php echo $userpassword ?>" class="solid" required>
                 </td>
             </tr>
             <tr>

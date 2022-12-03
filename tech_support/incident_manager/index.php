@@ -1,4 +1,4 @@
-<!-- Ben Yuter 11/09/2022, John Giaquinto 11/10/2022 -->
+<!-- Ben Yuter 11/23/2022, John Giaquinto 11/23/2022 -->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
 <!DOCTYPE html>

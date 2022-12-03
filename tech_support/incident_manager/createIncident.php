@@ -1,3 +1,4 @@
+<!-- Ben Yuter 11/23/2022, John Giaquinto 11/23/2022 -->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
 
@@ -50,7 +51,7 @@ if (!empty($_POST['email'])) { // We only get the customer information if the us
     } catch (Exception $e) {
         $message = $e->getMessage();
         $code = $e->getCode();
-        header("Location: error.php?code=$code&message=$message"); // If there is an error selecting the customer or products, display the error on the errors page
+        header("Location: ../errors/error.php?code=$code&message=$message"); // If there is an error selecting the customer or products, display the error on the errors page
     } finally {
         mysqli_close($con); // Regardless of whether we have an error, we always close the connection
     }
@@ -59,69 +60,69 @@ if (!empty($_POST['email'])) { // We only get the customer information if the us
 }
 
 ?>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <title>Register Product</title>
-    </head>
-    <body>
-    <main class="viewRegister">
-        <h1>Register Product</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register Product</title>
+</head>
+<body>
+<main class="viewRegister">
+    <h1>Register Product</h1>
+    <table>
+        <tr>
+            <td>
+                <p>Customer:</p>
+            </td>
+            <td>
+                <p> <?php echo $firstName . " " . $lastName ?></p>
+            </td>
+        </tr>
+    </table>
+    <form method='POST' action='incidentScript.php'>
+        <!-- The customerID is hidden from the user, but submitted with the form -->
+        <input type="hidden" name="id" value="<?php echo $customerID ?>" class="solid">
         <table>
             <tr>
                 <td>
-                    <p>Customer:</p>
+                    <label for="product">Product: </label>
                 </td>
                 <td>
-                    <p> <?php echo $firstName . " " . $lastName ?></p>
+                    <select name="product" id="product">
+                        <!-- The user can select a product from a list of product names, each corresponding to a product code which is submitted with the form -->
+                        <?php for ($i = 0; $i < sizeof($productNameArray); $i++) : ?>
+                            <option value="<?php echo $productCodeArray[$i]; ?>">
+                                <?php echo $productNameArray[$i]; ?>
+                            </option>
+                        <?php endfor; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="title">Title: </label>
+                </td>
+                <td>
+                    <input type="text" name="title" id="title" class="solid">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="description" id="descLabel">Description: </label>
+                </td>
+                <td>
+                    <textarea name="description" id="description" rows="5" cols="50"> </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <input type='submit' value='Create Incident' name='create incident'>
                 </td>
             </tr>
         </table>
-        <form method='POST' action='incidentScript.php'>
-            <!-- The customerID is hidden from the user, but submitted with the form -->
-            <input type="hidden" name="id" value="<?php echo $customerID ?>" class="solid">
-            <table>
-                <tr>
-                    <td>
-                        <label for="product">Product: </label>
-                    </td>
-                    <td>
-                        <select name="product" id="product">
-                            <!-- The user can select a product from a list of product names, each corresponding to a product code which is submitted with the form -->
-                            <?php for ($i = 0; $i < sizeof($productNameArray); $i++) : ?>
-                                <option value="<?php echo $productCodeArray[$i]; ?>">
-                                    <?php echo $productNameArray[$i]; ?>
-                                </option>
-                            <?php endfor; ?>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="title">Title: </label>
-                    </td>
-                    <td>
-                        <input type="text" name="title" id="title" class="solid">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="description" id="descLabel">Description: </label>
-                    </td>
-                    <td>
-                        <textarea name="description" id="description" rows="5" cols="50"> </textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                    </td>
-                    <td>
-                        <input type='submit' value='Create Incident' name='create incident'>
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </main>
-    </body>
-    </html>
+    </form>
+</main>
+</body>
+</html>
 <?php include '../view/footer.php'; ?>
