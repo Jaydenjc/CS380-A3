@@ -1,36 +1,37 @@
-<!-- Ben Yuter 11/09/2022, John Giaquinto 11/10/2022 -->
+<!-- Jayden Cooper 11/30/2022, Ben Yuter 11/09/2022, John Giaquinto 11/10/2022 -->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
 <?php
 
-session_start(); // check login
+// check login
+session_start();
 if ($_SESSION['login'] == "yes") {
 
 // Set the default timezone to New York for when we grab today's date
-    date_default_timezone_set('America/New_York');
-    if (!empty($_POST['product']) and !empty($_POST['id'])) { // We can only register a product of we know the product id and the customer id
-        $product = $_POST['product'];
-        $customerID = $_POST['id'];
-        $date = date('Y/m/d', time()); // Today's date in year/month/day format
+date_default_timezone_set('America/New_York');
+if (!empty($_POST['product']) and !empty($_POST['id'])) { // We can only register a product of we know the product id and the customer id
+    $product = htmlspecialchars($_POST['product']);
+    $customerID = htmlspecialchars($_POST['id']);
+    $date = date('Y/m/d', time()); // Today's date in year/month/day format
 
-        try {
-            // The IGNORE keyword won't throw an error for duplicate entries
-            $query = "INSERT IGNORE INTO registrations VALUES ('$customerID', '$product', '$date');";
-            $result = mysqli_query($con, $query);
-        } catch (Exception $e) {
-            $message = $e->getMessage();
-            $code = $e->getCode();
-            header("Location: error.php?code=$code&message=$message"); // If there is an error registering a product to a customer, print out the error for the user on the errors page
-        } finally {
-            mysqli_close($con); // Close the connection to the database
-        }
-    } else {
-        // If the user somehow gets to this page without having selected a product and customer, they are sent back to the index to login again
-        // The user is meant to go from index.php to registerProduct.php to registerScript.php
-        header("Location: index.php");
+    try {
+        // The IGNORE keyword won't throw an error for duplicate entries
+        $query = "INSERT IGNORE INTO registrations VALUES ('$customerID', '$product', '$date');";
+        $result = mysqli_query($con, $query);
+    } catch (Exception $e) {
+        $message = $e->getMessage();
+        $code = $e->getCode();
+        header("Location: error.php?code=$code&message=$message"); // If there is an error registering a product to a customer, print out the error for the user on the errors page
+    } finally {
+        mysqli_close($con); // Close the connection to the database
     }
+} else {
+    // If the user somehow gets to this page without having selected a product and customer, they are sent back to the index to login again
+    // The user is meant to go from index.php to registerProduct.php to registerScript.php
+    header("Location: index.php");
+}
 
-    echo '
+echo '
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -49,11 +50,13 @@ if ($_SESSION['login'] == "yes") {
     </body>
     </html>
 ';
-}
 
+}
 // if not logged in, go back to login page
 else
     header("Location: index.php");
 ?>
-<?php include '../view/footer.php'; ?>
+
+<?php include '../view/footer.php';
+?>
 
