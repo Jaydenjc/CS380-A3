@@ -47,7 +47,7 @@ include '../view/header.php'; ?>
             } catch (Exception $e) {
                 $message = $e->getMessage();
                 $code = $e->getCode();
-                header("Location: error.php?code=$code&message=$message"); // If there is an error selecting the technicians or deleting a technician, this error is printed on the error page
+                header("Location: ../errors/error.php?code=$code&message=$message"); // If there is an error selecting the technicians or deleting a technician, this error is printed on the error page
             } finally {
                 mysqli_close($con); // Regardless of whether we have an error, we close the connection
             }
