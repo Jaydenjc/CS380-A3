@@ -10,8 +10,8 @@ if ($_SESSION['login'] == "yes") {
 // Set the default timezone to New York for when we grab today's date
 date_default_timezone_set('America/New_York');
 if (!empty($_POST['product']) and !empty($_POST['id'])) { // We can only register a product of we know the product id and the customer id
-    $product = htmlspecialchars($_POST['product']);
-    $customerID = htmlspecialchars($_POST['id']);
+    $product = $_POST['product'];
+    $customerID = $_POST['id'];
     $date = date('Y/m/d', time()); // Today's date in year/month/day format
 
     try {
