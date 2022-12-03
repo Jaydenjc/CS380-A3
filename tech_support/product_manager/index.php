@@ -42,7 +42,7 @@ include '../view/header.php'; ?>
             } catch (Exception $e) {
                 $message = $e->getMessage();
                 $code = $e->getCode();
-                header("Location: error.php?code=$code&message=$message"); // If there is an error doing this, print out the error for the user on the error page
+                header("Location: ../errors/error.php?code=$code&message=$message"); // If there is an error doing this, print out the error for the user on the error page
             } finally {
                 mysqli_close($con); // Regardless of whether we have an error, we close the connection
             }
