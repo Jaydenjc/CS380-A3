@@ -91,7 +91,6 @@ $_SESSION['email'] = $email;
         <title>Register Product</title>
     </head>
     <body>
-    <h2 style="text-align:center;">  <?php echo "Welcome " . $email . "" ?></h2>
     <main class="viewRegister">
         <h1>Register Product</h1>
         <table>
@@ -132,6 +131,7 @@ $_SESSION['email'] = $email;
                 </tr>
             </table>
         </form>
+        <p style="text-align:left;">  <?php echo "You are logged in as " . $email . "" ?></p>
         <a href="logout.php"><button type="button">Logout</button> </a>
     </main>
     </body>
