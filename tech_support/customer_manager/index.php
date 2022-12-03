@@ -18,7 +18,7 @@ if (!empty($_POST['lname'])) {
     } catch (Exception $e) {
         $message = $e->getMessage();
         $code = $e->getCode();
-        header("Location: error.php?code=$code&message=$message"); // If there is an error selecting the customers, we display this error for the user on the error page
+        header("Location: ../errors/error.php?code=$code&message=$message"); // If there is an error selecting the customers, we display this error for the user on the error page
     } finally {
         mysqli_close($con); // Whether or not there is an error, we close the connection when we are done accessing the database
     }
