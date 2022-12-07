@@ -3,12 +3,10 @@
 include '../view/header.php'; ?>
 
 <?php
-
 // check login
 session_start();
-if (! isset($_SESSION['login'])) {
-
-    ?>
+if (!isset($_SESSION['login'])) {
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,21 +14,44 @@ if (! isset($_SESSION['login'])) {
 </head>
 <body>
 <main class="registerProduct">
-    <h1>Customer Login</h1>
-    <p>You must login before you can register a product.</p>
-
-    <!-- the user must enter their email (which is sent over to registerProduct.php) before they can register a product -->
-    <form action="registerProduct.php" method="post">
-        <label for="email">Email:</label>
-        <input type="text" name="email" class="solid">
-        <input type="submit" value="Login">
-    </form>
+    <!--  Create Login Section  -->
+    <section class="login">
+        <h1>Customer Login</h1>
+        <p>You must login before you can register a product.</p>
+        <!-- the user must enter their email (which is sent over to registerProduct.php) before they can register a product -->
+        <form action="registerProduct.php" method="post">
+            <table>
+                <tr>
+                    <td>
+                        <label for="emailCustomer">Email:</label>
+                    </td>
+                    <td>
+                        <input type="text" minlength="1" maxlength="20" name="emailCustomer" id="emailCustomer" value="" class="solid" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="passwordCustomer">Password:</label>
+                    </td>
+                    <td>
+                        <input type="text" minlength="1" maxlength="20" name="passwordCustomer" id="passwordCustomer"
+                               value="" class="solid" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td><input type="submit" value="Login"></td>
+                </tr>
+            </table>
+        </form>
+    </section>
 </main>
 </body>
 </html>
-    <?php
-}
-else
+
+<?php
+} else
     header("Location: registerProduct.php");
 ?>
 <?php include '../view/footer.php'; ?>

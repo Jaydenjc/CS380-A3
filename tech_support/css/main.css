@@ -159,7 +159,8 @@ textarea {
 }
 .addForm table, .addForm td,
 .selectCustomer table, .selectCustomer td,
-.viewRegister table, .viewRegister td{
+.viewRegister table, .viewRegister td,
+.login table, .login td{
     border:none;
 }
 .selectCustomer td:first-child,

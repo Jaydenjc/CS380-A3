@@ -5,7 +5,7 @@ include '../view/header.php'; ?>
 // Set the default timezone to New York for when we grab today's date
 date_default_timezone_set('America/New_York');
 
-// We can only create an incideent if we know the product id, customer id, and incident title and description
+// We can only create an incident if we know the product id, customer id, and incident title and description
 if (!empty($_POST['product']) and !empty($_POST['id']) and !empty($_POST['title']) and !empty($_POST['description'])) {
     $product = htmlspecialchars($_POST['product']);
     $customerID = htmlspecialchars($_POST['id']);

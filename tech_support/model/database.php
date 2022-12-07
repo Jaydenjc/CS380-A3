@@ -1,8 +1,8 @@
 <?php
     $host = 'webdev.bentley.edu';
-    $dbname= 'jgiaquinto';
-    $username = 'jgiaquinto';
-    $password = '3740';
+    $dbname= 'byuter';
+    $username = 'byuter';
+    $password = '2629';
     
     // allow MySQLi error reporting and Exception handling
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);

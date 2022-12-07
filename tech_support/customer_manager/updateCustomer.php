@@ -32,11 +32,36 @@ if (!empty($_POST['id'])) { // We should always know the customer ID unless the 
     } finally {
         mysqli_close($con); // Whether or not there is an error, we close the connection when we are done accessing the database
     }
+} elseif (!empty($_POST['fnameAdd']) and !empty($_POST['lnameAdd']) and !empty($_POST['addressAdd']) and !empty($_POST['cityAdd']) and !empty($_POST['stateAdd']) and !empty($_POST['pcodeAdd']) and !empty($_POST['countriesAdd']) and !empty($_POST['phoneAdd']) and !empty($_POST['emailAdd']) and !empty($_POST['passwordAdd'])) {
+    $fname = htmlspecialchars($_POST['fnameAdd']);
+    $lname = htmlspecialchars($_POST['lnameAdd']);
+    $address = htmlspecialchars($_POST['addressAdd']);
+    $city = htmlspecialchars($_POST['cityAdd']);
+    $state = htmlspecialchars($_POST['state']);
+    $pcode = htmlspecialchars($_POST['pcode']);
+    $ccode = htmlspecialchars($_POST['countries']);
+    $phone = htmlspecialchars($_POST['phone']);
+    $email = htmlspecialchars($_POST['email']);
+    $userpassword = htmlspecialchars($_POST['password']);
+
+    try {
+        // Query to update the customer
+        $query = "INSERT IGNORE INTO incidents (firstName, lastName, address, city, state, postalCode, countryCode, phone, email, password) VALUES ('$fname', '$lname', '$address', '$city', '$state', '$pcode', '$ccode', '$phone', '$email', '$password');";
+        $result = mysqli_query($con, $query);
+
+        echo "<main><p>Customer updated</p>";
+        echo "<a href=\"index.php\"><span class=\"addButton\">Return to customer search</span></a></main>";
+    } catch (Exception $e) {
+        $message = $e->getMessage();
+        $code = $e->getCode();
+        header("Location: error.php?code=$code&message=$message"); // If there is an error updating the customer, we display this error for the user on the errors page
+    } finally {
+        mysqli_close($con); // Whether or not there is an error, we close the connection when we are done accessing the database
+    }
 } else {
     // If the user got to this page without selecting a customer, redirect them to the error page
     header("Location: ../errors/error.php?message=Warning: Could not find CustomerID! Customer not updated!");
 }
-
 
 ?>
 <?php include '../view/footer.php'; ?>
