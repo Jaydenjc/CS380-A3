@@ -41,6 +41,10 @@ echo '
                 <input type="submit" value="Submit">
             </form>
             <br/>
+            <h1>Add a new customer</h1>
+            <a href="addCustomer.php">
+                <button type="button">Add Customer</button>
+            </a>
         </main>
     </body>
     </html>

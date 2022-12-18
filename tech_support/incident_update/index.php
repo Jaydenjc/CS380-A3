@@ -1,11 +1,16 @@
-<!-- Jayden Cooper 11/02/2022, Ileaqua Adams 11/02/2022, Ben Yuter 12/03/2022, John Giaquinto 11/07/2022 -->
+<!-- Ben Yuter 12/03/2022, John Giaquinto 12/18/2022 -->
 <?php include '../view/header.php'; ?>
+<?php
+// check login
+session_start();
+if (!isset($_SESSION['login']) or $_SESSION['login'] != "technician") {
+?>
 <main>
     <!--  Create Login Section  -->
     <section class="login">
         <h1>Technician Login</h1>
         You must login before you can update an incident.<br>
-        <form>
+        <form method='POST' action='technicianScript.php'>
             <table>
                 <tr>
                     <td>
@@ -31,13 +36,9 @@
             </table>
         </form>
     </section>
-    <section id="techMenu" class="subMenu">
-        <h2>Select Incident</h2>
-        <p>There are no open incidents for this technician.<!-- IDK IF THIS IS PHP OR JUST TEXT--></p>
-        <a href="../under_construction.php">Refresh List of Incident</a>
-
-        <p>You are logged in as <span><!-- ADD EMAIL --></span></p>
-        <button>Logout</button>
-    </section>
 </main>
+<?php
+} else
+    header("Location: technicianScript.php");
+?>
 <?php include '../view/footer.php'; ?>

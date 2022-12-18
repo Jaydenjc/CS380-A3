@@ -28,7 +28,7 @@ if (!empty($_POST['id'])) { // We should always know the customer ID unless the 
     } catch (Exception $e) {
         $message = $e->getMessage();
         $code = $e->getCode();
-        header("Location: error.php?code=$code&message=$message"); // If there is an error updating the customer, we display this error for the user on the errors page
+        header("Location: ../errors/error.php?code=$code&message=$message"); // If there is an error updating the customer, we display this error for the user on the errors page
     } finally {
         mysqli_close($con); // Whether or not there is an error, we close the connection when we are done accessing the database
     }
@@ -37,16 +37,16 @@ if (!empty($_POST['id'])) { // We should always know the customer ID unless the 
     $lname = htmlspecialchars($_POST['lnameAdd']);
     $address = htmlspecialchars($_POST['addressAdd']);
     $city = htmlspecialchars($_POST['cityAdd']);
-    $state = htmlspecialchars($_POST['state']);
-    $pcode = htmlspecialchars($_POST['pcode']);
-    $ccode = htmlspecialchars($_POST['countries']);
-    $phone = htmlspecialchars($_POST['phone']);
-    $email = htmlspecialchars($_POST['email']);
-    $userpassword = htmlspecialchars($_POST['password']);
+    $state = htmlspecialchars($_POST['stateAdd']);
+    $pcode = htmlspecialchars($_POST['pcodeAdd']);
+    $ccode = htmlspecialchars($_POST['countriesAdd']);
+    $phone = htmlspecialchars($_POST['phoneAdd']);
+    $email = htmlspecialchars($_POST['emailAdd']);
+    $userpassword = htmlspecialchars($_POST['passwordAdd']);
 
     try {
         // Query to update the customer
-        $query = "INSERT IGNORE INTO incidents (firstName, lastName, address, city, state, postalCode, countryCode, phone, email, password) VALUES ('$fname', '$lname', '$address', '$city', '$state', '$pcode', '$ccode', '$phone', '$email', '$password');";
+        $query = "INSERT IGNORE INTO customers (firstName, lastName, address, city, state, postalCode, countryCode, phone, email, password) VALUES ('$fname', '$lname', '$address', '$city', '$state', '$pcode', '$ccode', '$phone', '$email', '$userpassword');";
         $result = mysqli_query($con, $query);
 
         echo "<main><p>Customer updated</p>";
@@ -54,7 +54,7 @@ if (!empty($_POST['id'])) { // We should always know the customer ID unless the 
     } catch (Exception $e) {
         $message = $e->getMessage();
         $code = $e->getCode();
-        header("Location: error.php?code=$code&message=$message"); // If there is an error updating the customer, we display this error for the user on the errors page
+        header("Location: ../errors/error.php?code=$code&message=$message"); // If there is an error updating the customer, we display this error for the user on the errors page
     } finally {
         mysqli_close($con); // Whether or not there is an error, we close the connection when we are done accessing the database
     }

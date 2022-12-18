@@ -9,6 +9,10 @@ if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
 if (isset($_SESSION['login']) and $_SESSION['login'] == "customer") {
     header("Location: product_register/registerProduct.php");
 }
+
+if (isset($_SESSION['login']) and $_SESSION['login'] == "technician") {
+    header("Location: incident_update/technicianScript.php");
+}
 ?>
 <main>
     <nav>

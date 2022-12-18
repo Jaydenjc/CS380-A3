@@ -17,7 +17,7 @@ if (!isset($_SESSION['login']) or $_SESSION['login'] != "admin") {
                     </td>
                     <td>
                         <input type="text" minlength="1" maxlength="20" name="usernameAdmin" id="usernameAdmin"
-                               value="admin" class="solid" required>
+                               class="solid" required>
                     </td>
                 </tr>
                 <tr>
@@ -26,7 +26,7 @@ if (!isset($_SESSION['login']) or $_SESSION['login'] != "admin") {
                     </td>
                     <td>
                         <input type="text" minlength="1" maxlength="20" name="passwordAdmin" id="passwordAdmin"
-                               value="sesame" class="solid" required>
+                               class="solid" required>
                     </td>
                 </tr>
                 <tr>

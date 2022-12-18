@@ -10,8 +10,13 @@ error_reporting(0);
 $email = null;
 $password = null;
 if (!isset($_SESSION['username'])) {
-    $username = $_POST['usernameAdmin'];
-    $password = $_POST['passwordAdmin'];
+    if (!empty($_POST['usernameAdmin']) or !empty($_POST['passwordAdmin'])) {
+        $username = $_POST['usernameAdmin'];
+        $password = $_POST['passwordAdmin'];
+    }
+    else{
+        header("Location: invalidCredentials.php");
+    }
 } else {
     $username = $_SESSION['username'];
 }
@@ -29,7 +34,6 @@ try {
     mysqli_stmt_execute($query);
     $result = mysqli_stmt_get_result($query);
 
-
     if (mysqli_num_rows($result) > 0) {
         // create session variable containing correct login status for use in other pages
         $_SESSION['login'] = "admin";
@@ -42,7 +46,6 @@ try {
     }
 
 } catch (Exception $e) {
-    echo("Error!");
     $message = $e->getMessage();
     $code = $e->getCode();
     // If there is an error selecting the customer or products, display the error on the errors page
