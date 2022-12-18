@@ -1,3 +1,4 @@
+<!-- Ben Yuter 12/7/2022, John Giaquinto 12/18/2022 -->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
 <?php
@@ -62,9 +63,9 @@ finally {
             <li><a href="../product_manager/index.php">Manage Products</a></li>
             <li><a href="../technician_manager/index.php">Manage Technicians</a></li>
             <li><a href="../customer_manager/index.php">Manage Customers</a></li>
-            <li><a href="../errors/index.php">Create Incident</a></li>
+            <li><a href="../incident_manager/index.php">Create Incident</a></li>
             <li><a href="../under_construction.php">Assign Incident</a></li>
-            <li><a href="../under_construction.php">Display Incidents</a></li>
+            <li><a href="../incident_manager/displayIncidents.php">Display Incidents</a></li>
         </ul>
 
         <h2>Login Status</h2> <!-- This message indicates login status. Users can logout using button -->

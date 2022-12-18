@@ -1,4 +1,4 @@
-<!-- Ben Yuter 11/23/2022, John Giaquinto 11/23/2022 -->
+<!-- Ben Yuter 11/23/2022, John Giaquinto 12/18/2022 -->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
 
@@ -63,11 +63,11 @@ if (!empty($_POST['email'])) { // We only get the customer information if the us
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Register Product</title>
+    <title>Create Incident</title>
 </head>
 <body>
 <main class="viewRegister">
-    <h1>Register Product</h1>
+    <h1>Create Incident</h1>
     <table>
         <tr>
             <td>
