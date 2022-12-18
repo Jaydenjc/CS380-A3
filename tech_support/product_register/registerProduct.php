@@ -77,7 +77,7 @@ try {
     $message = $e->getMessage();
     $code = $e->getCode();
     // If there is an error selecting the customer or products, display the error on the errors page
-    header("Location: error.php?code=$code&message=$message");
+    header("Location: ../errors/error.php?code=$code&message=$message");
 } // Regardless of whether we have an error, we always close the connection
 finally {
     mysqli_close($con);
@@ -130,7 +130,7 @@ finally {
         </table>
     </form>
     <p style="text-align:left;">  <?php echo "You are logged in as " . $email . "" ?></p>
-    <a href="logout.php">
+    <a href="../logout.php">
         <button type="button">Logout</button>
     </a>
 </main>
