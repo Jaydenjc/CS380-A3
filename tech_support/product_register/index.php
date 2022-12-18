@@ -5,7 +5,7 @@ include '../view/header.php'; ?>
 <?php
 // check login
 session_start();
-if (!isset($_SESSION['login'])) {
+if (!isset($_SESSION['login']) or $_SESSION['login'] != "customer") {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +26,8 @@ if (!isset($_SESSION['login'])) {
                         <label for="emailCustomer">Email:</label>
                     </td>
                     <td>
-                        <input type="text" minlength="1" maxlength="20" name="emailCustomer" id="emailCustomer" value="" class="solid" required>
+                        <input type="text" minlength="1" maxlength="20" name="emailCustomer" id="emailCustomer"
+                               value="" class="solid" required>
                     </td>
                 </tr>
                 <tr>
@@ -34,7 +35,8 @@ if (!isset($_SESSION['login'])) {
                         <label for="passwordCustomer">Password:</label>
                     </td>
                     <td>
-                        <input type="text" minlength="1" maxlength="20" name="passwordCustomer" id="passwordCustomer"
+                        <input type="text" minlength="1" maxlength="20" name="passwordCustomer"
+                               id="passwordCustomer"
                                value="" class="solid" required>
                     </td>
                 </tr>

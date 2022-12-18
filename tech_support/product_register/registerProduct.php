@@ -1,4 +1,4 @@
-<!-- Jayden Cooper 11/30/2022, Ben Yuter 11/09/2022, John Giaquinto 11/10/2022 -->
+<!-- Jayden Cooper 11/30/2022, Ben Yuter 11/09/2022, John Giaquinto 12/17/2022 -->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
 
@@ -11,17 +11,23 @@ error_reporting(0);
 // if an email is already being used for a current session, use that email
 $email = null;
 $password = null;
-if (isset($_SESSION['email'])) {
+if (!isset($_SESSION['email'])) {
+    $email = $_POST['emailCustomer'];
+    $password = $_POST['passwordCustomer'];
+} else {
     $email = $_SESSION['email'];
-} else{
-    $email = $_POST['email'];
-    $password = $_POST['password'];
 }
 
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 try {
     // Select the customer's customerID, first name, and last name using a prepared form to prevent SQL injections
-    $query = mysqli_prepare($con, "SELECT customerID, firstName, lastName FROM customers WHERE email=? AND password=?" );
-    mysqli_stmt_bind_param($query, "s", $email, $password);
+    if (!isset($_SESSION['email'])) {
+        $query = mysqli_prepare($con, "SELECT customerID, firstName, lastName FROM customers WHERE email=? AND password=?");
+        mysqli_stmt_bind_param($query, "ss", $email, $password);
+    } else {
+        $query = mysqli_prepare($con, "SELECT customerID, firstName, lastName FROM customers WHERE email=?");
+        mysqli_stmt_bind_param($query, "s", $email);
+    }
     mysqli_stmt_execute($query);
     $result = mysqli_stmt_get_result($query);
 
@@ -39,6 +45,9 @@ try {
                 }
             }
         }
+        // create session variable containing correct login status for use in other pages
+        $_SESSION['login'] = "customer";
+        $_SESSION['email'] = $email;
     }
     // If there are no results in the database for the entered email,
     // the email must be invalid. Redirect to invalid email page
@@ -73,13 +82,6 @@ try {
 finally {
     mysqli_close($con);
 }
-
-// establish session
-session_start();
-
-// create session variable containing correct login status for use in other pages
-$_SESSION['login'] = "yes";
-$_SESSION['email'] = $email;
 ?>
 <!DOCTYPE html>
 <html lang="en">
