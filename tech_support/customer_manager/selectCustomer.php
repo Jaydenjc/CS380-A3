@@ -1,9 +1,12 @@
 <!-- Jayden Cooper 11/30/2022, Ben Yuter 11/30/2022, John Giaquinto 11/30/2022 Ileaqua Adams 11/30/2022-->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
-
 <?php
-
+// check login
+session_start();
+if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
+?>
+<?php
 if (!empty($_POST['customerID'])) { // If the user pressed the "select" button, this should be true (i.e., we should know the customerID)
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $ID = $_POST['customerID'];
@@ -49,7 +52,6 @@ if (!empty($_POST['customerID'])) { // If the user pressed the "select" button, 
     // If the user somehow got to this page without properly selecting a customer, redirect to the error page
     header("Location: ../errors/error.php?message=Warning: Customer not properly selected!");
 }
-
 ?>
 <main class="selectCustomer">
     <h1>View / Update Customer</h1>
@@ -182,5 +184,13 @@ if (!empty($_POST['customerID'])) { // If the user pressed the "select" button, 
     </form>
     <!-- The user can go back to the index page to make a new search if they click this button-->
     <a href="index.php"><span class="addButton">Search Customers</span></a>
+    <p style="text-align:left;">  <?php echo "You are logged in as " . $_SESSION['username'] . "" ?></p>
+    <a href="../logout.php">
+        <button type="button">Logout</button>
+    </a>
 </main>
+<?php
+} else
+    header("Location: ../admin/index.php");
+?>
 <?php include '../view/footer.php'; ?>

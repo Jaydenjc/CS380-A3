@@ -67,7 +67,7 @@ finally {
             <li><a href="../under_construction.php">Assign Incident</a></li>
             <li><a href="../incident_manager/displayIncidents.php">Display Incidents</a></li>
         </ul>
-
+        <br>
         <h2>Login Status</h2> <!-- This message indicates login status. Users can logout using button -->
         <p style="text-align:left;">  <?php echo "You are logged in as " . $username . "" ?></p>
         <a href="../logout.php">

@@ -1,7 +1,11 @@
 <!-- Jayden Cooper 11/09/2022, Ben Yuter 11/09/2022, John Giaquinto 11/10/2022 Ileaqua Adams 11/30/2022-->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
-
+<?php
+// check login
+session_start();
+if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
+?>
 <main class="selectCustomer">
     <h1>Add/Update Customer</h1>
     <!-- Here the user can enter the new / changed customer information to update. The form submits to the updateCustomer.php page -->
@@ -108,5 +112,13 @@ include '../view/header.php'; ?>
     </form>
     <!-- The user can go back to the index page to make a new search if they click this button-->
     <a href="index.php"><span class="addButton">Search Customers</span></a>
+    <p style="text-align:left;">  <?php echo "You are logged in as " . $_SESSION['username'] . "" ?></p>
+    <a href="../logout.php">
+        <button type="button">Logout</button>
+    </a>
 </main>
+<?php
+} else
+    header("Location: ../admin/index.php");
+?>
 <?php include '../view/footer.php'; ?>

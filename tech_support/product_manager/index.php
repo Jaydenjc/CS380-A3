@@ -1,6 +1,11 @@
-<!-- Jayden Cooper 11/02/2022, Ben Yuter 11/09/2022, John Giaquinto 11/10/2022 -->
+<!-- Jayden Cooper 11/02/2022, Ben Yuter 11/09/2022, John Giaquinto 12/18/2022 -->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
+<?php
+// check login
+session_start();
+if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
+?>
 <main>
     <!-- PRODUCT LIST -->
     <section class="viewTable">
@@ -88,5 +93,13 @@ include '../view/header.php'; ?>
         <span class="viewButton" onclick="hideAddSection()">View Product List</span>
     </section>
     <!-- END ADD PRODUCT-->
+    <p style="text-align:left;">  <?php echo "You are logged in as " . $_SESSION['username'] . "" ?></p>
+    <a href="../logout.php">
+        <button type="button">Logout</button>
+    </a>
 </main>
+<?php
+} else
+    header("Location: ../admin/index.php");
+?>
 <?php include '../view/footer.php'; ?>
