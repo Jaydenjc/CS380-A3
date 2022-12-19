@@ -1,4 +1,4 @@
-<!-- Jayden Cooper 11/02/2022, Ileaqua Adams 11/02/2022, Ben Yuter 12/03/2022, John Giaquinto 11/07/2022 -->
+<!-- Ben Yuter 12/07/2022, John Giaquinto 12/18/2022 -->
 <?php include '../view/header.php'; ?>
 <?php
 // check login
@@ -40,6 +40,6 @@ if (!isset($_SESSION['login']) or $_SESSION['login'] != "admin") {
 </main>
 <?php
 } else
-    header("Location: adminMenu.php");
+    header("Location: adminMenu.php"); //if an admin is already logged in, go straight to the admin menu page
 ?>
 <?php include '../view/footer.php'; ?>

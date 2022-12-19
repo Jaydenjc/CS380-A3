@@ -190,7 +190,7 @@ if (!empty($_POST['customerID'])) { // If the user pressed the "select" button, 
     </a>
 </main>
 <?php
-} else
+} else // if an admin is not logged in, redirect to the admin login page
     header("Location: ../admin/index.php");
 ?>
 <?php include '../view/footer.php'; ?>

@@ -1,5 +1,5 @@
+<!-- John Giaquinto 12/18/2022 -->
 <?php
-
 $host = 'webdev.bentley.edu';
 $db = 'jgiaquinto';
 $user = 'jgiaquinto';
@@ -14,8 +14,8 @@ try {
     $pdo = new PDO($dsn, $user, $password);
 
 } catch (PDOException $e) {
-    echo $e->getMessage();
-    include('../errors/database_error.php');
+    $message = $e->getMessage();
+    header("Location: ../errors/error.php?message=$message");
     exit();
 }
 ?>

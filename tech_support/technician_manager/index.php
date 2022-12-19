@@ -18,7 +18,7 @@ if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
             try {
                 // If the user has selected a technician to delete, we will delete that technician from the technicians table based on the techID
                 if (!empty($_POST['techID'])) {
-                    $ID = $_POST['techID'];
+                    $ID = htmlspecialchars($_POST['techID']);
                     $query = "DELETE FROM technicians WHERE techID='$ID';";
                     $result = mysqli_query($con, $query);
                 }
@@ -112,7 +112,7 @@ if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
     </a>
 </main>
 <?php
-} else
+} else // If an admin is not logged in, redirect to the admin login page
     header("Location: ../admin/index.php");
 ?>
 <?php include '../view/footer.php'; ?>

@@ -1,4 +1,4 @@
-<!-- Jayden Cooper 11/09/2022, Ben Yuter 11/09/2022, John Giaquinto 11/10/2022 Ileaqua Adams 11/30/2022-->
+<!-- Jayden Cooper 11/09/2022, Ben Yuter 12/07/2022, John Giaquinto 12/19/2022 Ileaqua Adams 11/30/2022-->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
 <?php
@@ -8,7 +8,7 @@ if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
 ?>
 <main class="selectCustomer">
     <h1>Add/Update Customer</h1>
-    <!-- Here the user can enter the new / changed customer information to update. The form submits to the updateCustomer.php page -->
+    <!-- Here the user can enter the new customer information to update. The form submits to the updateCustomer.php page -->
     <form action="updateCustomer.php" method="post">
         <table>
             <tr>
@@ -118,7 +118,7 @@ if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
     </a>
 </main>
 <?php
-} else
+} else // If an admin is not logged in, redirect to the admin login page
     header("Location: ../admin/index.php");
 ?>
 <?php include '../view/footer.php'; ?>

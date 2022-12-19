@@ -1,8 +1,13 @@
-<!-- John Giaquinto 11/10/2022 -->
-<!-- The user should only ever be sent to this page if they entered an invalid email -->
+<!-- John Giaquinto 12/18/2022 -->
+<!-- The admin should only ever be sent to this page if they entered an invalid customer email -->
 <!-- This page is almost identical to the index page, with the exception that it indicates an invalid email has been entered -->
 <?php require('../model/database.php');
 include '../view/header.php'; ?>
+<?php
+// check login
+session_start();
+if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,4 +26,8 @@ include '../view/header.php'; ?>
 </main>
 </body>
 </html>
+<?php
+} else // If an admin is not logged in, redirect to the admin login page
+    header("Location: ../admin/index.php");
+?>
 <?php include '../view/footer.php'; ?>

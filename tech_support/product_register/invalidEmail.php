@@ -15,36 +15,38 @@ if (!isset($_SESSION['login']) or $_SESSION['login'] != "customer") {
 </head>
 <body>
 <main class="registerProduct">
-    <h1>Customer Login</h1>
-    <p>The email or password you entered is invalid. Please enter a valid email / password combination.</p>
+    <section class="login">
+        <h1>Customer Login</h1>
+        <p>The email or password you entered is invalid. Please enter a valid email / password combination.</p>
 
-    <form action="registerProduct.php" method="post">
-        <table>
-            <tr>
-                <td>
-                    <label for="emailCustomer">Email:</label>
-                </td>
-                <td>
-                    <input type="text" minlength="1" maxlength="20" name="emailCustomer" id="emailCustomer" value=""
-                           class="solid" required>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="passwordCustomer">Password:</label>
-                </td>
-                <td>
-                    <input type="text" minlength="1" maxlength="20" name="passwordCustomer" id="passwordCustomer"
-                           value="" class="solid" required>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                </td>
-                <td><input type="submit" value="Login"></td>
-            </tr>
-        </table>
-    </form>
+        <form action="registerProduct.php" method="post">
+            <table>
+                <tr>
+                    <td>
+                        <label for="emailCustomer">Email:</label>
+                    </td>
+                    <td>
+                        <input type="text" minlength="1" maxlength="20" name="emailCustomer" id="emailCustomer" value=""
+                               class="solid" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="passwordCustomer">Password:</label>
+                    </td>
+                    <td>
+                        <input type="text" minlength="1" maxlength="20" name="passwordCustomer" id="passwordCustomer"
+                               value="" class="solid" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td><input type="submit" value="Login"></td>
+                </tr>
+            </table>
+        </form>
+    <section class="login">
 </main>
 </body>
 </html>

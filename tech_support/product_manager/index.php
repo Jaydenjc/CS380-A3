@@ -18,7 +18,7 @@ if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
             try {
                 // Delete a product if we have the product code
                 if (!empty($_POST['productCode'])) {
-                    $code = $_POST['productCode'];
+                    $code = htmlspecialchars($_POST['productCode']);
                     $query = "DELETE FROM products WHERE productCode='$code';";
                     $result = mysqli_query($con, $query);
                 }
@@ -99,7 +99,7 @@ if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
     </a>
 </main>
 <?php
-} else
+} else // If an admin is not logged in, redirect to the admin login page
     header("Location: ../admin/index.php");
 ?>
 <?php include '../view/footer.php'; ?>

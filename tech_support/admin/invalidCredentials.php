@@ -41,6 +41,6 @@ if (!isset($_SESSION['login']) or $_SESSION['login'] != "admin") {
 </main>
 <?php
 } else
-    header("Location: adminMenu.php");
+    header("Location: adminMenu.php"); //if an admin is already logged in, go straight to the admin menu page
 ?>
 <?php include '../view/footer.php'; ?>

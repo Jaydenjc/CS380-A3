@@ -7,16 +7,17 @@ include '../view/header.php'; ?>
 session_start();
 error_reporting(0);
 
-// if an email is already being used for a current session, use that email
-$email = null;
+// if a username is already being used for the current session, use that username to login
+// otherwise, require the password
+$username = null;
 $password = null;
 if (!isset($_SESSION['username'])) {
-    if (!empty($_POST['usernameAdmin']) or !empty($_POST['passwordAdmin'])) {
-        $username = $_POST['usernameAdmin'];
-        $password = $_POST['passwordAdmin'];
+    if (!empty($_POST['usernameAdmin']) and !empty($_POST['passwordAdmin'])) {
+        $username = htmlspecialchars($_POST['usernameAdmin']);
+        $password = htmlspecialchars($_POST['passwordAdmin']);
     }
     else{
-        header("Location: invalidCredentials.php");
+        header("Location: invalidCredentials.php"); //Both the username and password need to be filled out
     }
 } else {
     $username = $_SESSION['username'];
@@ -24,7 +25,7 @@ if (!isset($_SESSION['username'])) {
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 try {
-    // Select the customer's customerID, first name, and last name using a prepared form to prevent SQL injections
+    // Select the admins using a prepared form to prevent SQL injections
     if (!isset($_SESSION['username'])) {
         $query = mysqli_prepare($con, "SELECT * FROM administrators WHERE username=? AND password=?");
         mysqli_stmt_bind_param($query, "ss", $username, $password);
@@ -37,11 +38,11 @@ try {
 
     if (mysqli_num_rows($result) > 0) {
         // create session variable containing correct login status for use in other pages
-        $_SESSION['login'] = "admin";
-        $_SESSION['username'] = $username;
+        $_SESSION['login'] = "admin"; //This user can access admin pages
+        $_SESSION['username'] = htmlspecialchars($username);
     }
-    // If there are no results in the database for the entered email,
-    // the email must be invalid. Redirect to invalid email page
+    // If there are no results in the database for the entered username and password,
+    // the credentials must be invalid. Redirect to invalid credentials page
     else {
         header("Location: invalidCredentials.php");
     }
@@ -49,7 +50,7 @@ try {
 } catch (Exception $e) {
     $message = $e->getMessage();
     $code = $e->getCode();
-    // If there is an error selecting the customer or products, display the error on the errors page
+    // If there is an error selecting the admin, display the error on the errors page
     header("Location: ../errors/error.php?code=$code&message=$message");
 } // Regardless of whether we have an error, we always close the connection
 finally {

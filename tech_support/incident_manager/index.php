@@ -16,7 +16,7 @@ if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
     <h1>Get Customer</h1>
     <p>You must enter the customer's email address to select the customer</p>
 
-    <!-- the user must enter their email (which is sent over to createIncident.php) before they can register a product -->
+    <!-- the admin must enter a customer (which is sent over to createIncident.php) before they can register a product -->
     <form action="createIncident.php" method="post">
         <label for="email">Email:</label>
         <input type="text" name="email" class="solid">
@@ -31,7 +31,7 @@ if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
 </body>
 </html>
 <?php
-} else
+} else // If an admin is not logged in, redirect to the admin login page
     header("Location: ../admin/index.php");
 ?>
 <?php include '../view/footer.php'; ?>

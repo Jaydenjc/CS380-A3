@@ -3,17 +3,22 @@
 include '../view/header.php'; ?>
 
 <?php
-
 // check login
 session_start();
 error_reporting(0);
 
-// if an email is already being used for a current session, use that email
+// if an email is already being used for a current session, use that email to grab the customer information
+// otherwise, require a password
 $email = null;
 $password = null;
 if (!isset($_SESSION['email'])) {
-    $email = $_POST['emailCustomer'];
-    $password = $_POST['passwordCustomer'];
+    if (!empty($_POST['emailCustomer']) and !empty($_POST['passwordCustomer'])) {
+        $email = htmlspecialchars($_POST['emailCustomer']);
+        $password = htmlspecialchars($_POST['passwordCustomer']);
+    }
+    else{
+        header("Location: invalidEmail.php"); // Both the username and password need to be filled out
+    }
 } else {
     $email = $_SESSION['email'];
 }
@@ -37,8 +42,7 @@ try {
             foreach ($line as $key => $value) {
                 if ($key == "customerID") {
                     $customerID = $value;
-                }
-                if ($key == "firstName") {
+                } elseif ($key == "firstName") {
                     $firstName = $value;
                 } elseif ($key == "lastName") {
                     $lastName = $value;
@@ -46,11 +50,11 @@ try {
             }
         }
         // create session variable containing correct login status for use in other pages
-        $_SESSION['login'] = "customer";
+        $_SESSION['login'] = "customer"; //This user can access customer pages
         $_SESSION['email'] = $email;
     }
-    // If there are no results in the database for the entered email,
-    // the email must be invalid. Redirect to invalid email page
+    // If there are no results in the database for the entered email and password,
+    // the credentials must be invalid. Redirect to invalid email page
     else {
         header("Location: invalidEmail.php");
     }

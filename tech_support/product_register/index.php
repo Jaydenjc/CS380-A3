@@ -53,7 +53,7 @@ if (!isset($_SESSION['login']) or $_SESSION['login'] != "customer") {
 </html>
 
 <?php
-} else
+} else // if a customer is already logged in, redirect to registerProduct.php
     header("Location: registerProduct.php");
 ?>
 <?php include '../view/footer.php'; ?>

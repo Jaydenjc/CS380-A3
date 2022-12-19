@@ -5,7 +5,7 @@ include '../view/header.php'; ?>
 
 // check login
 session_start();
-if ($_SESSION['login'] == "yes") {
+if (isset($_SESSION['login']) and $_SESSION['login'] == "customer") {
 
 // Set the default timezone to New York for when we grab today's date
 date_default_timezone_set('America/New_York');
@@ -52,7 +52,7 @@ echo '
 ';
 
 }
-// if not logged in, go back to login page
+// If a customer is not logged in, go back to the customer login page
 else
     header("Location: index.php");
 ?>

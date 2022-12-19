@@ -94,7 +94,7 @@ if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
     echo '<main><br><p style="text-align:left;">';
     echo "You are logged in as " . $_SESSION['username'] . "";
     echo '</p><a href="../logout.php"><button type="button">Logout</button></a></main>';
-} else
+} else // If an admin is not logged in, redirect to the admin login page
     header("Location: ../admin/index.php");
 ?>
 <?php include '../view/footer.php'; ?>

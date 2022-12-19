@@ -16,6 +16,7 @@ if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
 
             $sql = "SELECT * FROM incidents";
 
+            //We will use pdo to select incidents rather than mysqli
             $pstmt = $pdo->prepare($sql);
             $pstmt->execute();
 
@@ -25,19 +26,20 @@ if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
 
             $openIncidentCount = 0;
 
-            //using a foreach loop
+            // for each incident, grab its information and echo it onto the page
             foreach ($pstmt as $row) {
                 $incidentID = $row['incidentID'];
                 $productCode = $row['productCode'];
                 $title = $row['title'];
                 $description = $row['description'];
-                if(!isset($row['dateClosed'])) {
+                if(!isset($row['dateClosed'])) { //We only want to display open incidents
                     $openIncidentCount ++;
                     echo "<tr><td>$incidentID</td><td>$productCode</td><td>$title</td><td>$description</td></tr>";
                 }
             }
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            $message = $e->getMessage();
+            header("Location: ../errors/error.php?message=$message");
         }
         ?>
     </table>
@@ -49,7 +51,7 @@ if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
     </a>
 </main>
 <?php
-} else
+} else //If an admin is not logged in, redirect to the admin login page
     header("Location: ../admin/index.php");
 ?>
 <?php include '../view/footer.php'; ?>

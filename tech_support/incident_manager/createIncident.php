@@ -8,7 +8,7 @@ if (isset($_SESSION['login']) and $_SESSION['login'] == "admin") {
 ?>
 <?php
 if (!empty($_POST['email'])) { // We only get the customer information if the user entered the customer email
-    $email = $_POST['email'];
+    $email = htmlspecialchars($_POST['email']);
 
     try {
         // Select the customer's customerID, first name, and last name using a prepared form to prevent SQL injections
@@ -135,7 +135,7 @@ if (!empty($_POST['email'])) { // We only get the customer information if the us
 </body>
 </html>
 <?php
-} else
+} else // if an admin is not logged in, redirect to the admin login page
     header("Location: ../admin/index.php");
 ?>
 <?php include '../view/footer.php'; ?>

@@ -16,6 +16,7 @@ if (isset($_SESSION['login']) and $_SESSION['login'] == "technician") {
 
                 $sql = "SELECT * FROM incidents WHERE techID=?";
 
+                // For selecting the technician incidents we will use PDO instead of mysqli
                 $pstmt = $pdo->prepare($sql);
                 $pstmt->execute([$_SESSION['techID']]);
 
@@ -25,7 +26,7 @@ if (isset($_SESSION['login']) and $_SESSION['login'] == "technician") {
 
                 $openIncidentCount = 0;
 
-                //using a foreach loop
+                // for each incident, grab its information and echo it onto the page
                 foreach ($pstmt as $row) {
                     $incidentID = $row['incidentID'];
                     $customerID = $row['customerID'];
@@ -34,13 +35,14 @@ if (isset($_SESSION['login']) and $_SESSION['login'] == "technician") {
                     $dateOpened = date('d/M/Y', strtotime($row['dateOpened']));
                     $title = $row['title'];
                     $description = $row['description'];
-                    if(!isset($row['dateClosed'])) {
+                    if(!isset($row['dateClosed'])) { //We only want to display open incidents
                         $openIncidentCount ++;
                         echo "<tr><td>$incidentID</td><td>$customerID</td><td>$productCode</td><td>$techID</td><td>$dateOpened</td><td>$title</td><td>$description</td></tr>";
                     }
                 }
             } catch (PDOException $e) {
-                echo $e->getMessage();
+                $message = $e->getMessage();
+                header("Location: ../errors/error.php?message=$message");
             }
         }
         ?>
